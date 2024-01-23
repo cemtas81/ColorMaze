@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "655904878976",
+    "firebase_url": "https://mazeandfurious.firebaseio.com",
+    "project_id": "mazeandfurious",
+    "storage_bucket": "mazeandfurious.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655904878976:android:21488a06cc4389e6d11165",
+        "android_client_info": {
+          "package_name": "com.SitulaBilisim.MazeAndFurious"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655904878976-8gqte40qvcqj818rjatc1g6o9t4u6dv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvAe0jwbtejmZrP0kqiq2lZxtXqDlmp5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655904878976-8gqte40qvcqj818rjatc1g6o9t4u6dv3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "655904878976-kltdeid0s6ic7ntoqua93hcrmuud98b4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.SitulaBilisim.MazeAndFurious"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
