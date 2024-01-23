@@ -1,14 +1,13 @@
 using System;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
     public int height = 10;
-    public GameObject groundPrefab,playerPrefab;
+    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab;
     public GameObject wallPrefab;
 
  
@@ -17,7 +16,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     void Start()
     {
 
-        currentLevel = PlayerPrefs.GetInt("lastLevel", 45); // Default to level 1 if not set
+        currentLevel = PlayerPrefs.GetInt("lastLevel",0); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
 
     }
@@ -53,30 +52,47 @@ public class SimpleMazeGenerator : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                if (mazeData[i, j] == -1)
+                switch (mazeData[i, j])
                 {
-                    // Save player's starting position
-                    playerStartX = i;
-                    playerStartY = j;
+                    case -1:
+                        // Save player's starting position
+                        playerStartX = i;
+                        playerStartY = j;
+                        break;
+                    case 0:
+                        // Instantiate wall at a higher position
+                        Instantiate(wallPrefab, new Vector3(i, 1, j), Quaternion.identity);
+                        break;
+                    case 1:
+                        // Instantiate ground
+                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);                      
+                        break;
+                    case 2:
+                        // Instantiate trap or handle the trap logic
+                        Instantiate(trapPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        break;
+                    case 8:
+                        // Instantiate left space
+                        Instantiate(leftSpacePrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        break;
+                    case 9:
+                        // Instantiate right space
+                        Instantiate(rightSpacePrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        break;
+                    // Add other cases for different tile types if needed
+                    default:
+                        Debug.LogWarning($"Unknown tile type {mazeData[i, j]} at ({i}, {j}).");
+                        break;
                 }
-                else if (mazeData[i, j] == 1)
-                {
-                    // Instantiate ground
-                    Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
-                    currentCell++;
-                }
-                else if (mazeData[i, j] == 0)
-                {
-                    // Instantiate wall at a higher position
-                    Instantiate(wallPrefab, new Vector3(i, 1, j), Quaternion.identity);
-                }
-                // Add other conditions for different types of tiles if needed
             }
         }
 
         // Check if player's starting position is found
         if (playerStartX != -1 && playerStartY != -1)
         {
+            // Instantiate ground under the player
+            Instantiate(groundPrefab, new Vector3(playerStartX, 0, playerStartY), Quaternion.identity);
+
             // Instantiate player or perform other actions based on the starting position
             // For example, instantiate a player GameObject
             Instantiate(playerPrefab, new Vector3(playerStartX, 1.1f, playerStartY), Quaternion.identity);
@@ -133,8 +149,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     {
         currentLevel++;
         PlayerPrefs.SetInt("lastLevel", currentLevel);
-        GenerateMazeForCurrentLevel();
+        //GenerateMazeForCurrentLevel();
         //DrawMaze();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void FinishCurrentLevel()

@@ -18,6 +18,7 @@ public class PaintGround : MonoBehaviour
         currentcolor = GetComponent<MeshRenderer>().material;
         part = GetComponentInChildren<ParticleSystem>();
         m_generator=FindAnyObjectByType<SimpleMazeGenerator>();
+        m_generator.currentCell++;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -29,7 +30,10 @@ public class PaintGround : MonoBehaviour
            
             part.Play();
             m_generator.currentCell--;
-
+            if (m_generator.currentCell<1)
+            {
+                m_generator.FinishCurrentLevel();
+            }
         }
         
 

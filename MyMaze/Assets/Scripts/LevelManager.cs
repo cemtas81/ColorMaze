@@ -13,10 +13,6 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        generator.currentCell = PlayerPrefs.GetInt("painted");
-        if (generator.currentCell<=0)
-        {
-            generator.FinishCurrentLevel();
-        }
+       
     }
 }

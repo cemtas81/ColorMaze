@@ -429,8 +429,15 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 3153231606762315876, guid: 0601e1fef2f2a7047809e98c49e172a2,
     type: 3}
+  trapPrefab: {fileID: 3485298637838965121, guid: 0e0e9e451080eed4bb1101c09e6175ce,
+    type: 3}
+  leftSpacePrefab: {fileID: 3485298637838965121, guid: 0e0e9e451080eed4bb1101c09e6175ce,
+    type: 3}
+  rightSpacePrefab: {fileID: 3485298637838965121, guid: 0e0e9e451080eed4bb1101c09e6175ce,
+    type: 3}
   wallPrefab: {fileID: 4665687936655852449, guid: b4b23e01a8117d242b5799314d5d85d9,
     type: 3}
+  currentCell: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
