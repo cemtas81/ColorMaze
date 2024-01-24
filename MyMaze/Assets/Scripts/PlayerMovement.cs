@@ -25,17 +25,17 @@ public class PlayerMovement: MonoBehaviour
     {
         watersound = GetComponent<AudioSource>();
         rb = gameObject.GetComponent<Rigidbody>();
+        isMoving = true;
+        StartCoroutine("StartDelay");
  
     }
 
     private void FixedUpdate()
     {
-        if (!isMoving && PlayerPrefs.GetInt("finished") == 0)
+        if (!isMoving )
         {
             rb.velocity = speed * direction;
             StartCoroutine("TimeDelay");
-
-
 
         }
         if (nextWallPos != Vector3.zero)
@@ -48,7 +48,11 @@ public class PlayerMovement: MonoBehaviour
             }
         }
     }
-
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(20);
+        isMoving=false;
+    }
     void Update()
     {
         speedy = rb.velocity.magnitude;
@@ -67,9 +71,6 @@ public class PlayerMovement: MonoBehaviour
                 {
                     return;
                 }
-
-
-
 
                 //Forward and Back
                 if (currentSwipe.x > -10f && currentSwipe.x < 10f)
