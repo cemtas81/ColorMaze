@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SimpleMazeGenerator : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     public int height = 10;
     public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab;
     public GameObject wallPrefab;
-
+    public Text levelText;
  
     private int currentLevel;
     public int currentCell;
@@ -18,7 +19,7 @@ public class SimpleMazeGenerator : MonoBehaviour
 
         currentLevel = PlayerPrefs.GetInt("lastLevel",0); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
-
+        levelText.text = ("Level" +":"+ currentLevel.ToString());
     }
 
     void GenerateMazeForCurrentLevel()
