@@ -153,7 +153,10 @@ public class SimpleMazeGenerator : MonoBehaviour
         //DrawMaze();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void FinishCurrentLevel()
     {
         // Add your logic for finishing the current level
