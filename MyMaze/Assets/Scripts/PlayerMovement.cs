@@ -138,7 +138,6 @@ public class PlayerMovement: MonoBehaviour
         direction = forSetDirection.normalized;
 
         transform.rotation = Quaternion.LookRotation(direction);
-
         // Raycast to find the next wall position
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f))
         {
