@@ -26,7 +26,7 @@ public class PlayerMovement: MonoBehaviour
         watersound = GetComponent<AudioSource>();
         rb = gameObject.GetComponent<Rigidbody>();
         isMoving = true;
-        StartCoroutine("StartDelay");
+        _ = StartCoroutine(nameof(StartDelay));
  
     }
 
@@ -35,7 +35,7 @@ public class PlayerMovement: MonoBehaviour
         if (!isMoving )
         {
             rb.velocity = speed * direction;
-            StartCoroutine("TimeDelay");
+            _ = StartCoroutine(nameof(TimeDelay));
 
         }
         if (nextWallPos != Vector3.zero)
@@ -78,23 +78,23 @@ public class PlayerMovement: MonoBehaviour
 
                     if (currentSwipe.y > 4f)
                     {
-                        setDirection(Vector3.forward);
+                        SetDirection(Vector3.forward);
                         if (forsound == false)
                         {
                             forsound = true;
-                            StartCoroutine("SoundManager");
+                            _ = StartCoroutine(nameof(SoundManager));
                         }
 
 
                     }
                     if (currentSwipe.y < -4f)
                     {
-                        setDirection(Vector3.back);
-                        StartCoroutine("TimeDelay");
+                        SetDirection(Vector3.back);
+                        _ = StartCoroutine(nameof(TimeDelay));
                         if (forsound == false)
                         {
                             forsound = true;
-                            StartCoroutine("SoundManager");
+                            _ = StartCoroutine(nameof(SoundManager));
                         }
                     }
                 }
@@ -104,22 +104,22 @@ public class PlayerMovement: MonoBehaviour
                 {
                     if (currentSwipe.x > 4f)
                     {
-                        setDirection(Vector3.right);
-                        StartCoroutine("TimeDelay");
+                        SetDirection(Vector3.right);
+                        _ = StartCoroutine(nameof(TimeDelay));
                         if (forsound == false)
                         {
                             forsound = true;
-                            StartCoroutine("SoundManager");
+                            _ = StartCoroutine(nameof(SoundManager));
                         }
                     }
                     if (currentSwipe.x < -4f)
                     {
-                        setDirection(Vector3.left);
-                        StartCoroutine("TimeDelay");
+                        SetDirection(Vector3.left);
+                        _ = StartCoroutine(nameof(TimeDelay));
                         if (forsound == false)
                         {
                             forsound = true;
-                            StartCoroutine("SoundManager");
+                            _ = StartCoroutine(nameof(SoundManager));
                         }
                     }
                 }
@@ -133,15 +133,18 @@ public class PlayerMovement: MonoBehaviour
             swipePosSecond = Vector2.zero;
         }
     }
-
-    public void setDirection(Vector3 forSetDirection)
+    public void SetDirection(Vector3 forSetDirection)
     {
-        direction = forSetDirection;
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, forSetDirection, out hit, 100f))
+        direction = forSetDirection.normalized;
+
+        transform.rotation = Quaternion.LookRotation(direction);
+
+        // Raycast to find the next wall position
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f))
         {
             nextWallPos = hit.point;
         }
+
         isMoving = false;
     }
 
