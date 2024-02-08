@@ -57,82 +57,75 @@ public class PlayerMovement: MonoBehaviour
     {
         speedy = rb.velocity.magnitude;
 
-
-        if (Input.GetMouseButton(0) && speedy < 1)
+        if (Input.GetMouseButtonDown(0))
         {
             swipePosFirst = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
 
+        if (Input.GetMouseButton(0))
+        {
+            swipePosSecond = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
 
-            if (swipePosSecond != Vector2.zero)
+        if (Input.GetMouseButtonUp(0) && speedy < 1)
+        {
+            // Calculate swipe direction
+            currentSwipe = swipePosSecond - swipePosFirst;
+
+            // Check if swipe distance is significant
+            if (currentSwipe.sqrMagnitude >= minSwipeRange)
             {
-
-                currentSwipe = swipePosFirst - swipePosSecond;
-                if (currentSwipe.sqrMagnitude < minSwipeRange)
+                // Forward
+                if (currentSwipe.y > Mathf.Abs(currentSwipe.x))
                 {
-                    return;
-                }
-
-                //Forward and Back
-                if (currentSwipe.x > -10f && currentSwipe.x < 10f)
-                {
-
-                    if (currentSwipe.y > 4f)
+                    SetDirection(Vector3.forward);
+                    if (forsound == false)
                     {
-                        SetDirection(Vector3.forward);
-                        if (forsound == false)
-                        {
-                            forsound = true;
-                            _ = StartCoroutine(nameof(SoundManager));
-                        }
-
-
-                    }
-                    if (currentSwipe.y < -4f)
-                    {
-                        SetDirection(Vector3.back);
-                        _ = StartCoroutine(nameof(TimeDelay));
-                        if (forsound == false)
-                        {
-                            forsound = true;
-                            _ = StartCoroutine(nameof(SoundManager));
-                        }
+                        forsound = true;
+                        StartCoroutine(nameof(SoundManager));
                     }
                 }
-
-                // Right and Left
-                else if (currentSwipe.y > -10f && currentSwipe.y < 10f)
+                // Backward
+                else if (currentSwipe.y < -Mathf.Abs(currentSwipe.x))
                 {
-                    if (currentSwipe.x > 4f)
+                    SetDirection(Vector3.back);
+                    StartCoroutine(nameof(TimeDelay));
+                    if (forsound == false)
                     {
-                        SetDirection(Vector3.right);
-                        _ = StartCoroutine(nameof(TimeDelay));
-                        if (forsound == false)
-                        {
-                            forsound = true;
-                            _ = StartCoroutine(nameof(SoundManager));
-                        }
+                        forsound = true;
+                        StartCoroutine(nameof(SoundManager));
                     }
-                    if (currentSwipe.x < -4f)
+                }
+                // Right
+                else if (currentSwipe.x > Mathf.Abs(currentSwipe.y))
+                {
+                    SetDirection(Vector3.right);
+                    StartCoroutine(nameof(TimeDelay));
+                    if (forsound == false)
                     {
-                        SetDirection(Vector3.left);
-                        _ = StartCoroutine(nameof(TimeDelay));
-                        if (forsound == false)
-                        {
-                            forsound = true;
-                            _ = StartCoroutine(nameof(SoundManager));
-                        }
+                        forsound = true;
+                        StartCoroutine(nameof(SoundManager));
+                    }
+                }
+                // Left
+                else if (currentSwipe.x < -Mathf.Abs(currentSwipe.y))
+                {
+                    SetDirection(Vector3.left);
+                    StartCoroutine(nameof(TimeDelay));
+                    if (forsound == false)
+                    {
+                        forsound = true;
+                        StartCoroutine(nameof(SoundManager));
                     }
                 }
             }
-            swipePosSecond = swipePosFirst;
 
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
+            // Reset swipe positions
+            swipePosFirst = Vector2.zero;
             swipePosSecond = Vector2.zero;
         }
     }
+
     public void SetDirection(Vector3 forSetDirection)
     {
         direction = forSetDirection.normalized;
