@@ -35,7 +35,7 @@ public class PlayerMovement: MonoBehaviour
         if (!isMoving )
         {
             rb.velocity = speed * direction;
-            _ = StartCoroutine(nameof(TimeDelay));
+            //_ = StartCoroutine(nameof(TimeDelay));
 
         }
         if (nextWallPos != Vector3.zero)
@@ -50,7 +50,7 @@ public class PlayerMovement: MonoBehaviour
     }
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(20f);
         isMoving=false;
     }
     void Update()
@@ -89,7 +89,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.y < -Mathf.Abs(currentSwipe.x))
                 {
                     SetDirection(Vector3.back);
-                    StartCoroutine(nameof(TimeDelay));
+                    //StartCoroutine(nameof(TimeDelay));
                     if (forsound == false)
                     {
                         forsound = true;
@@ -100,7 +100,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.x > Mathf.Abs(currentSwipe.y))
                 {
                     SetDirection(Vector3.right);
-                    StartCoroutine(nameof(TimeDelay));
+                    //StartCoroutine(nameof(TimeDelay));
                     if (forsound == false)
                     {
                         forsound = true;
@@ -111,7 +111,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.x < -Mathf.Abs(currentSwipe.y))
                 {
                     SetDirection(Vector3.left);
-                    StartCoroutine(nameof(TimeDelay));
+                    //StartCoroutine(nameof(TimeDelay));
                     if (forsound == false)
                     {
                         forsound = true;
@@ -140,10 +140,10 @@ public class PlayerMovement: MonoBehaviour
         isMoving = false;
     }
 
-    public IEnumerator TimeDelay()
-    {
-        yield return new WaitForSeconds(5f);
-    }
+    //public IEnumerator TimeDelay()
+    //{
+    //    yield return new WaitForSeconds(5f);
+    //}
 
     public IEnumerator SoundManager()
     {
