@@ -10,9 +10,4 @@ public class LevelManager : MonoBehaviour
         generator = FindObjectOfType<SimpleMazeGenerator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 }
