@@ -8,11 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Blue
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e8b340b1de3b83a43826a85009708867,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -26,7 +26,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cfa972365ad4b44f995c911d72e272e8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -85,9 +85,14 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _Base_Noise_Clamp_Max: 1
+    - _Base_Noise_Clamp_Min: 0
+    - _Base_Noise_Scale: 5
+    - _Base_Noise_Time_Scale: 0.025
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -97,27 +102,52 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Fill: 0
+    - _Fill_Noise_Clamp_Max: 1
+    - _Fill_Noise_Clamp_Min: 0
+    - _Fill_Noise_Scale: 5
+    - _Fill_Noise_Time_Scale: 0.025
+    - _Fill_Width: 0.25
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _OutlineWidth: 0.3
+    - _Overlap: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimStep: 0.7
+    - _RimStepSmooth: 0.5
+    - _ShadowStep: 0.5
+    - _ShadowStepSmooth: 0.04
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpecularStep: 0
+    - _SpecularStepSmooth: 0.065
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Use_Base_Noise: 1
+    - _Use_Fill_Noise: 1
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
+    - _Base_Color: {r: 0.28412393, g: 0.15735143, b: 2.5660384, a: 1}
     - _Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
     - _EmissionColor: {r: 0.07647085, g: 1.1203266, b: 1.4738017, a: 0.678}
+    - _Fill_Color: {r: 27.24957, g: 156.1524, b: 444.3774, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Range: {r: -0.01, g: 1, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6119501618577860375
 MonoBehaviour:

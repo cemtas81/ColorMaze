@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
+using Cinemachine;
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
@@ -12,9 +12,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab;
     public GameObject wallPrefab;
     public Text levelText;
- 
     private int currentLevel;
     public int currentCell;
+    //public CinemachineVirtualCamera virtualCam;
     void Start()
     {
 
@@ -64,7 +64,7 @@ public class SimpleMazeGenerator : MonoBehaviour
                         break;
                     case 0:
                         // Instantiate wall at a higher position
-                        Instantiate(wallPrefab, new Vector3(i, 1, j), Quaternion.identity);
+                        Instantiate(wallPrefab, new Vector3(i, Random.Range(1, 1.1f), j), Quaternion.identity);
                         break;
                     case 1:
                         // Instantiate ground
@@ -112,6 +112,7 @@ public class SimpleMazeGenerator : MonoBehaviour
             // Instantiate player or perform other actions based on the starting position
             // For example, instantiate a player GameObject
             Instantiate(playerPrefab, new Vector3(playerStartX, 1.1f, playerStartY), Quaternion.identity);
+           
         }
     }
 
