@@ -3,12 +3,13 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
     public int height = 10;
-    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab;
+    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab;
     public GameObject wallPrefab;
     public Text levelText;
  
@@ -29,14 +30,15 @@ public class SimpleMazeGenerator : MonoBehaviour
         if (mazeData != null)
         {
             // Generate or instantiate maze based on mazeData
-            GenerateMaze(mazeData);
+            GenerateMaze(mazeData, 20);
         }
         else
         {
             Debug.LogError("Failed to generate maze for level " + currentLevel);
         }
+
     }
-    void GenerateMaze(int[,] mazeData)
+    void GenerateMaze(int[,] mazeData, int v)
     {
         if (mazeData == null)
         {
@@ -66,7 +68,7 @@ public class SimpleMazeGenerator : MonoBehaviour
                         break;
                     case 1:
                         // Instantiate ground
-                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);                      
+                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
                         break;
                     case 2:
                         // Instantiate trap or handle the trap logic
@@ -88,6 +90,19 @@ public class SimpleMazeGenerator : MonoBehaviour
             }
         }
 
+        // Fill the area outside the maze with another prefab
+        for (int x = -21; x < width + v; x++)
+        {
+            for (int y = -21; y < height + v; y++)
+            {
+                if (x < 0 || y < 0 || x >= width || y >= height)
+                {
+                    // Instantiate the prefab outside the maze bounds
+                    Instantiate(outsidePrefab, new Vector3(x, Random.Range(1,3.5f), y), Quaternion.identity);
+                }
+            }
+        }
+
         // Check if player's starting position is found
         if (playerStartX != -1 && playerStartY != -1)
         {
@@ -99,6 +114,7 @@ public class SimpleMazeGenerator : MonoBehaviour
             Instantiate(playerPrefab, new Vector3(playerStartX, 1.1f, playerStartY), Quaternion.identity);
         }
     }
+
 
     int[,] ReadMazeDataFromText(int level)
     {
