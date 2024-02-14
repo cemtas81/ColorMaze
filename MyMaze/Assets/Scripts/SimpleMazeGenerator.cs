@@ -9,20 +9,25 @@ public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
     public int height = 10;
-    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab;
+    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,center;
     public GameObject wallPrefab;
     public Text levelText;
     private int currentLevel;
     public int currentCell;
-    //public CinemachineVirtualCamera virtualCam;
-    void Start()
+    public CinemachineVirtualCamera virtualCam;
+    public CinemachineFreeLook cam2;
+   
+    private void Start()
     {
-
-        currentLevel = PlayerPrefs.GetInt("lastLevel",0); // Default to level 1 if not set
+        currentLevel = PlayerPrefs.GetInt("lastLevel", 0); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
-        levelText.text = ("Level" +":"+ currentLevel.ToString());
-    }
+        levelText.text = ("Level" + ":" + currentLevel.ToString());
+       
 
+        virtualCam.LookAt = FindObjectOfType<PlayerMovement>().transform;
+        //center.transform.parent= FindObjectOfType<PlayerMovement>().transform;
+        virtualCam.Follow = center.transform;
+    }
     void GenerateMazeForCurrentLevel()
     {
         int[,] mazeData = ReadMazeDataFromText(currentLevel);
