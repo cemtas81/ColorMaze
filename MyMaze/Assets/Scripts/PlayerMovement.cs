@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -50,13 +49,33 @@ public class PlayerMovement: MonoBehaviour
     }
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(.3f);
         isMoving=false;
     }
     void Update()
     {
         speedy = rb.velocity.magnitude;
+        // Keyboard input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        if ((horizontalInput != 0 || verticalInput != 0) &&  speedy < 1 &&!isMoving)
+        {
+            // Check if the movement is horizontal or vertical
+            if (horizontalInput != 0 )
+            {
+                SetDirection(new Vector3(horizontalInput, 0f, 0f));
+            }
+            else if (verticalInput != 0 )
+            {
+                SetDirection(new Vector3(0f, 0f, verticalInput));
+            }
 
+            if (!forsound)
+            {
+                forsound = true;
+                StartCoroutine(nameof(SoundManager));
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             swipePosFirst = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -89,7 +108,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.y < -Mathf.Abs(currentSwipe.x))
                 {
                     SetDirection(Vector3.back);
-                    //StartCoroutine(nameof(TimeDelay));
+              
                     if (forsound == false)
                     {
                         forsound = true;
@@ -100,7 +119,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.x > Mathf.Abs(currentSwipe.y))
                 {
                     SetDirection(Vector3.right);
-                    //StartCoroutine(nameof(TimeDelay));
+            
                     if (forsound == false)
                     {
                         forsound = true;
@@ -111,7 +130,7 @@ public class PlayerMovement: MonoBehaviour
                 else if (currentSwipe.x < -Mathf.Abs(currentSwipe.y))
                 {
                     SetDirection(Vector3.left);
-                    //StartCoroutine(nameof(TimeDelay));
+          
                     if (forsound == false)
                     {
                         forsound = true;
@@ -139,11 +158,6 @@ public class PlayerMovement: MonoBehaviour
 
         isMoving = false;
     }
-
-    //public IEnumerator TimeDelay()
-    //{
-    //    yield return new WaitForSeconds(5f);
-    //}
 
     public IEnumerator SoundManager()
     {
