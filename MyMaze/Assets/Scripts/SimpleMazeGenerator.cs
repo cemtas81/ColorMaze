@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using Cinemachine;
+
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
@@ -14,19 +14,14 @@ public class SimpleMazeGenerator : MonoBehaviour
     public Text levelText;
     private int currentLevel;
     public int currentCell;
-    public CinemachineVirtualCamera virtualCam;
-    public CinemachineFreeLook cam2;
+   
    
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 0); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
-        levelText.text = ("Level" + ":" + currentLevel.ToString());
-       
-
-        virtualCam.LookAt = FindObjectOfType<PlayerMovement>().transform;
-        //center.transform.parent= FindObjectOfType<PlayerMovement>().transform;
-        virtualCam.Follow = center.transform;
+        levelText.text = ("Level" + ":" + currentLevel.ToString());       
+      
     }
     void GenerateMazeForCurrentLevel()
     {

@@ -296,14 +296,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 16, z: 0}
-  m_XDamping: 10
-  m_YDamping: 10
-  m_ZDamping: 10
+  m_FollowOffset: {x: 0, y: 16, z: -0}
+  m_XDamping: 5
+  m_YDamping: 5
+  m_ZDamping: 5
   m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 16
-  m_RollDamping: 0
+  m_PitchDamping: 3
+  m_YawDamping: 3
+  m_RollDamping: 3
   m_AngularDamping: 0
 --- !u!1 &251899372
 GameObject:
@@ -444,7 +444,7 @@ Camera:
   far clip plane: 500
   field of view: 50
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -538,8 +538,8 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
+    m_Style: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -899,8 +899,6 @@ MonoBehaviour:
     type: 3}
   levelText: {fileID: 1274410260}
   currentCell: 0
-  virtualCam: {fileID: 1807290621}
-  cam2: {fileID: 1944642233}
 --- !u!1 &651196042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1021,7 @@ Transform:
   m_GameObject: {fileID: 753012751}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 12}
+  m_LocalPosition: {x: 12, y: 0, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2320,7 +2318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1807290621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2339,8 +2337,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 753012752}
+  m_Follow: {fileID: 753012752}
   m_Lens:
     FieldOfView: 50
     OrthographicSize: 15
@@ -2368,8 +2366,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807290620}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12, y: 16, z: 12}
+  m_LocalRotation: {x: 0.6427876, y: 0, z: 0, w: 0.7660445}
+  m_LocalPosition: {x: 12, y: 16, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2509,7 +2507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1944642233
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-
+using Cinemachine;
 public class PlayerMovement: MonoBehaviour
 {
 
@@ -15,18 +15,22 @@ public class PlayerMovement: MonoBehaviour
     public int minSwipeRange = 500;
     Vector3 direction;
     Vector3 nextWallPos;
-
+    private bool targetDecided;
     Vector2 swipePosFirst;
     Vector2 swipePosSecond;
     Vector2 currentSwipe;
-
+    public CinemachineVirtualCamera virtualCam;
+    public CinemachineFreeLook cam2;
     void Start()
     {
         watersound = GetComponent<AudioSource>();
         rb = gameObject.GetComponent<Rigidbody>();
         isMoving = true;
         _ = StartCoroutine(nameof(StartDelay));
- 
+        targetDecided = false;
+        cam2=FindAnyObjectByType<CinemachineFreeLook>();
+        virtualCam=FindAnyObjectByType<CinemachineVirtualCamera>();
+    
     }
 
     private void FixedUpdate()
@@ -155,7 +159,13 @@ public class PlayerMovement: MonoBehaviour
         {
             nextWallPos = hit.point;
         }
+        if (!targetDecided)
+        {
+            virtualCam.Follow = this.transform;
+            //cam2.Follow = this.transform;   
+            targetDecided = true;
 
+        }
         isMoving = false;
     }
 
@@ -167,6 +177,7 @@ public class PlayerMovement: MonoBehaviour
         yield return new WaitForSeconds(0.2f); // watersound doesn't work all the time
 
         forsound = false;
+  
     }
 
 }
