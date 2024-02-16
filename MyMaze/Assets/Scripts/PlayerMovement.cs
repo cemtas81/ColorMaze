@@ -21,6 +21,7 @@ public class PlayerMovement: MonoBehaviour
     Vector2 currentSwipe;
     public CinemachineVirtualCamera virtualCam;
     public CinemachineFreeLook cam2;
+    private GameObject center;
     void Start()
     {
         watersound = GetComponent<AudioSource>();
@@ -30,12 +31,12 @@ public class PlayerMovement: MonoBehaviour
         targetDecided = false;
         cam2=FindAnyObjectByType<CinemachineFreeLook>();
         virtualCam=FindAnyObjectByType<CinemachineVirtualCamera>();
-    
+       
     }
 
     private void FixedUpdate()
     {
-        if (!isMoving )
+        if (!isMoving&&targetDecided )
         {
             rb.velocity = speed * direction;
             //_ = StartCoroutine(nameof(TimeDelay));
@@ -48,13 +49,15 @@ public class PlayerMovement: MonoBehaviour
                 isMoving = false;
                 direction = Vector3.zero;
                 nextWallPos = Vector3.zero;
+              
             }
         }
     }
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.5f);
         isMoving=false;
+        targetDecided=true;
     }
     void Update()
     {
@@ -154,21 +157,23 @@ public class PlayerMovement: MonoBehaviour
         direction = forSetDirection.normalized;
 
         transform.rotation = Quaternion.LookRotation(direction);
+
         // Raycast to find the next wall position
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f))
         {
             nextWallPos = hit.point;
+           
         }
-        if (!targetDecided)
-        {
-            virtualCam.Follow = this.transform;
-            //cam2.Follow = this.transform;   
-            targetDecided = true;
-
-        }
+        //virtualCam.Follow = this.transform;
         isMoving = false;
+        MoveCam(direction);
     }
-
+    void MoveCam(Vector3 forSetDirection)
+    {
+    
+        Vector3 direction = new Vector3(forSetDirection.x, 0f, forSetDirection.z);
+        virtualCam.transform.DOMove(virtualCam.transform.position+direction, 1f);
+    }
     public IEnumerator SoundManager()
     {
 
@@ -177,7 +182,8 @@ public class PlayerMovement: MonoBehaviour
         yield return new WaitForSeconds(0.2f); // watersound doesn't work all the time
 
         forsound = false;
-  
+        //yield return new WaitForSeconds(0.2f);
+        //virtualCam.Follow = center.transform;
     }
 
 }
