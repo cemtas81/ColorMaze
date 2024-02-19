@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Wall
+  - FxTemporaire
+  - Warp
   layers:
   - Default
   - TransparentFX

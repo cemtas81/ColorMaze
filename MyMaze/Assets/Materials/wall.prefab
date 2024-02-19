@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxY: 1.5
   duration: 1
+  crushEffect: {fileID: 100018, guid: 51a86f32efb25674485dd9c5b35d8695, type: 3}

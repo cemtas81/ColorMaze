@@ -1,27 +1,32 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10;
     public int height = 10;
-    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,center;
-    public GameObject wallPrefab;
+    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke;
+    public GameObject wallPrefab,warpPrefab;
     public Text levelText;
     private int currentLevel;
     public int currentCell;
-   
-   
+    public float instantiationProbability=.5f;
+    public float randomNumber;
+    List<Vector3> groundPositions = new List<Vector3>(); // Store positions of ground prefabs
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 0); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
-        levelText.text = ("Level" + ":" + currentLevel.ToString());       
-      
+        levelText.text = ("Level" + ":" + currentLevel.ToString());
+        // Generate a random number between 0 and 1
+        
+
     }
     void GenerateMazeForCurrentLevel()
     {
@@ -50,6 +55,8 @@ public class SimpleMazeGenerator : MonoBehaviour
         int playerStartX = -1;
         int playerStartY = -1;
 
+        
+
         // Instantiate GameObjects based on mazeData
         for (int i = 0; i < width; i++)
         {
@@ -67,8 +74,9 @@ public class SimpleMazeGenerator : MonoBehaviour
                         Instantiate(wallPrefab, new Vector3(i, Random.Range(1, 1.1f), j), Quaternion.identity);
                         break;
                     case 1:
-                        // Instantiate ground
-                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        // Instantiate ground and add its position to the list
+                        GameObject ground = Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        groundPositions.Add(ground.transform.position);
                         break;
                     case 2:
                         // Instantiate trap or handle the trap logic
@@ -90,6 +98,20 @@ public class SimpleMazeGenerator : MonoBehaviour
             }
         }
 
+        // Choose a random ground position from the list
+        if (groundPositions.Count > 0)
+        {
+            randomNumber = Random.value;
+            // Check if the random number is within the probability threshold
+            if (randomNumber <= instantiationProbability)
+            {
+                Vector3 randomGroundPosition = groundPositions[Random.Range(0, groundPositions.Count)];
+
+                // Instantiate your object on the random ground position
+                Instantiate(warpPrefab, randomGroundPosition, Quaternion.identity);
+            }
+        }
+
         // Fill the area outside the maze with another prefab
         for (int x = -21; x < width + v; x++)
         {
@@ -98,7 +120,7 @@ public class SimpleMazeGenerator : MonoBehaviour
                 if (x < 0 || y < 0 || x >= width || y >= height)
                 {
                     // Instantiate the prefab outside the maze bounds
-                    Instantiate(outsidePrefab, new Vector3(x, Random.Range(1,3.5f), y), Quaternion.identity);
+                    Instantiate(outsidePrefab, new Vector3(x, Random.Range(1, 3.5f), y), Quaternion.identity);
                 }
             }
         }
@@ -110,12 +132,10 @@ public class SimpleMazeGenerator : MonoBehaviour
             Instantiate(groundPrefab, new Vector3(playerStartX, 0, playerStartY), Quaternion.identity);
 
             // Instantiate player or perform other actions based on the starting position
-            // For example, instantiate a player GameObject
             Instantiate(playerPrefab, new Vector3(playerStartX, 1.1f, playerStartY), Quaternion.identity);
-           
+
         }
     }
-
 
     int[,] ReadMazeDataFromText(int level)
     {
@@ -178,9 +198,15 @@ public class SimpleMazeGenerator : MonoBehaviour
     public void FinishCurrentLevel()
     {
         // Add your logic for finishing the current level
-        // ...
         Debug.Log("Finished");
         // Proceed to the next level
         NextLevel();
+    }
+    public void Warp(GameObject passenger)
+    {
+        Vector3 randomGroundPosition = groundPositions[Random.Range(0, groundPositions.Count)];
+        randomGroundPosition.y = passenger.transform.position.y;
+        passenger.transform.position=randomGroundPosition;
+        Instantiate(warpSmoke,new(randomGroundPosition.x,2,randomGroundPosition.z),Quaternion.identity); 
     }
 }
