@@ -10,17 +10,25 @@ public class Ufo : MonoBehaviour
     public float moveDuration = 1f; // Duration of UFO movement
     private CountDownTimer timer;
     public ParticleSystem particle;
-  
+
     void Start()
     {
         m_Generator = FindObjectOfType<SimpleMazeGenerator>();
         m_Generator.UfoMove(this.gameObject);
         // Start a continuous rotation
         StartCoroutine(Spin());
-        timer=FindObjectOfType<CountDownTimer>(); 
-     
-    }
+        timer=FindObjectOfType<CountDownTimer>();
+        StartCoroutine(GoAway());
 
+    }
+    IEnumerator GoAway()
+    {
+        yield return new WaitForSecondsRealtime(10);
+        particle.Stop();
+        GetComponent<BoxCollider>().enabled = false;
+        MoveUfoToRandomPosition(true);
+
+    }
     private IEnumerator Spin()
     {
         while (true)
@@ -58,10 +66,10 @@ public class Ufo : MonoBehaviour
         player.transform.position = targetPos; // Ensure final position accuracy
         player.transform.parent=transform;
         // Move UFO to a random position outside the screen
-        MoveUfoToRandomPosition();
+        MoveUfoToRandomPosition(false);
     }
 
-    private void MoveUfoToRandomPosition()
+    private void MoveUfoToRandomPosition(bool empty)
     {
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         float randomX = Random.Range(-screenBounds.x, screenBounds.x);
@@ -69,6 +77,10 @@ public class Ufo : MonoBehaviour
         Vector3 targetPosition = new Vector3(randomX, currentY, 0);
 
         transform.DOMove(targetPosition, moveDuration).SetEase(Ease.Linear);
-        StartCoroutine(timer.GameOver(2));
+        if (!empty)
+        {
+            StartCoroutine(timer.GameOver(2));
+        }
+        
     }
 }
