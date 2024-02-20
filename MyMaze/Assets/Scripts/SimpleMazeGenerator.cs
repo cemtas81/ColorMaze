@@ -213,8 +213,18 @@ public class SimpleMazeGenerator : MonoBehaviour
     {
         Vector3 randomGroundPosition = groundPositions[Random.Range(0, groundPositions.Count)];
         randomGroundPosition.y = ufo.transform.position.y;
+
+        // Move UFO to random ground position
         ufo.transform.DOMove(randomGroundPosition, 2)
-                .SetEase(Ease.InOutSine) // Customize easing as needed
-               .Play();
+            .SetEase(Ease.InOutSine) // Customize easing as needed
+            .OnComplete(() => EnableCollider(ufo.GetComponent<Collider>()))
+            .Play();
+    }
+
+    private void EnableCollider(Collider collider)
+    {
+        if (collider != null)
+            collider.enabled = true;
+        ufo.GetComponent<Ufo>().particle.Play();
     }
 }
