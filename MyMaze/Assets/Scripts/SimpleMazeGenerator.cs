@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,18 +7,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-
 public class SimpleMazeGenerator : MonoBehaviour
 {
-    public int width = 10;
-    public int height = 10;
-    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke;
-    public GameObject wallPrefab,warpPrefab;
+    public int width = 10, height = 10, currentCell;
+    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke, wallPrefab, warpPrefab,ufo;
     public Text levelText;
     private int currentLevel;
-    public int currentCell;
-    public float instantiationProbability=.5f;
-    public float randomNumber;
+    public float instantiationProbability=.5f, randomNumber,randomNumberUfo,ufoProbability;
+  
     List<Vector3> groundPositions = new List<Vector3>(); // Store positions of ground prefabs
     private void Start()
     {
@@ -101,7 +98,7 @@ public class SimpleMazeGenerator : MonoBehaviour
         // Choose a random ground position from the list
         if (groundPositions.Count > 0)
         {
-            randomNumber = Random.value;
+            randomNumber = Random.value; randomNumberUfo = Random.value;
             // Check if the random number is within the probability threshold
             if (randomNumber <= instantiationProbability)
             {
@@ -109,6 +106,10 @@ public class SimpleMazeGenerator : MonoBehaviour
 
                 // Instantiate your object on the random ground position
                 Instantiate(warpPrefab, randomGroundPosition, Quaternion.identity);
+            }
+            if (randomNumberUfo<=ufoProbability)
+            {
+                ufo.SetActive(true);    
             }
         }
 
@@ -188,7 +189,6 @@ public class SimpleMazeGenerator : MonoBehaviour
         currentLevel++;
         PlayerPrefs.SetInt("lastLevel", currentLevel);
         //GenerateMazeForCurrentLevel();
-        //DrawMaze();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void RestartLevel()
@@ -208,5 +208,13 @@ public class SimpleMazeGenerator : MonoBehaviour
         randomGroundPosition.y = passenger.transform.position.y;
         passenger.transform.position=randomGroundPosition;
         Instantiate(warpSmoke,new(randomGroundPosition.x,2,randomGroundPosition.z),Quaternion.identity); 
+    }
+    public void UfoMove(GameObject ufo)
+    {
+        Vector3 randomGroundPosition = groundPositions[Random.Range(0, groundPositions.Count)];
+        randomGroundPosition.y = ufo.transform.position.y;
+        ufo.transform.DOMove(randomGroundPosition, 2)
+                .SetEase(Ease.InOutSine) // Customize easing as needed
+               .Play();
     }
 }

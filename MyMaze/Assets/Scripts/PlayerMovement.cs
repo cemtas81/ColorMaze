@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
                 
                 }
             }
-            else
+            else if(speedy>=1)
             {
                 if (Vector3.Distance(transform.position, nextWallPos) < .55)
                 {
@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new(forSetDirection.x, 0f, forSetDirection.z);
         Vector3 targetPosition = virtualCam.transform.position + direction;
         targetPosition.x = Mathf.Clamp(targetPosition.x, 10, 12); // clamp x position
-        targetPosition.z = Mathf.Clamp(targetPosition.z, 8, 12); // clamp z position
+        targetPosition.z = Mathf.Clamp(targetPosition.z, 9, 12); // clamp z position
         virtualCam.transform.DOMove(targetPosition, 1f);
     }
     public IEnumerator SoundManager()
