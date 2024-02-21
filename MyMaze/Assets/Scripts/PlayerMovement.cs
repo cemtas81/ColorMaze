@@ -4,7 +4,7 @@ using DG.Tweening;
 using Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
-
+    public LayerMask layer;
     public float speed = 50f;
     private float speedy;
     private Rigidbody rb;
@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
 
         // Raycast to find the next wall position
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f,layer))
         {
             nextWallPos = hit.point;
             wall = hit.collider.gameObject;

@@ -43,9 +43,12 @@ public class Ufo : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerMovement plyr))
         {
+            
             plyr.enabled = false;
             plyr.GetComponent<Rigidbody>().isKinematic = true;
+            plyr.transform.parent = transform;
             StartCoroutine(MovePlayerUpAndMoveUfo(plyr));
+
         }
     }
 
@@ -54,7 +57,7 @@ public class Ufo : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startPos = player.transform.position;
         Vector3 targetPos = startPos + Vector3.up * upAbove; // Move player 2 units up
-
+     
         // Move the player up
         while (elapsedTime < moveDuration)
         {
@@ -64,7 +67,7 @@ public class Ufo : MonoBehaviour
         }
 
         player.transform.position = targetPos; // Ensure final position accuracy
-        player.transform.parent=transform;
+        
         // Move UFO to a random position outside the screen
         MoveUfoToRandomPosition(false);
     }

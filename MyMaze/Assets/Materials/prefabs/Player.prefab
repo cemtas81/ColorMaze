@@ -124,6 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01970d40b22daef4e8cba9572ff3f566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 128
   speed: 50
   watersound: {fileID: 0}
   forsound: 0

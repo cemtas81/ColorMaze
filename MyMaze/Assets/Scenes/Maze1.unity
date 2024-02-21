@@ -425,7 +425,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 191
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   instantiationProbability: 0.5
   randomNumber: 0
   randomNumberUfo: 0
-  ufoProbability: 0.5
+  ufoProbability: 1
 --- !u!1 &651196042
 GameObject:
   m_ObjectHideFlags: 0
