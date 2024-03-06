@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - FxTemporaire
   - Warp
+  - Sellector
   layers:
   - Default
   - TransparentFX
