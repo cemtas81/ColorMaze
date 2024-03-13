@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
+using System.Collections.Generic;
+
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask layer;
@@ -17,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public CinemachineVirtualCamera virtualCam;
     public CinemachineFreeLook cam2;
     public GameObject wall, crushEffect;
+    [SerializeField] private List<GameObject> skins;
+    [SerializeField] private List<Material> mats;
+    [SerializeField] private MeshRenderer mesh;
+    private int SkinCount, matCount;
     void Start()
     {
         watersound = GetComponent<AudioSource>();
@@ -26,7 +32,10 @@ public class PlayerMovement : MonoBehaviour
         targetDecided = false;
         cam2 = FindAnyObjectByType<CinemachineFreeLook>();
         virtualCam = FindAnyObjectByType<CinemachineVirtualCamera>();
-
+        SkinCount = PlayerPrefs.GetInt("Skin");
+        skins[SkinCount].SetActive(true);
+        matCount = PlayerPrefs.GetInt("Mat");
+        mesh.material = mats[matCount];
     }
 
     private void FixedUpdate()
@@ -55,10 +64,10 @@ public class PlayerMovement : MonoBehaviour
                     //isMoving = false;
                     direction = Vector3.zero;
                     nextWallPos = Vector3.zero;
-                
+
                 }
             }
-            else if(speedy>=1)
+            else if (speedy >= 1)
             {
                 if (Vector3.Distance(transform.position, nextWallPos) < .55)
                 {
@@ -70,10 +79,10 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Instantiate(crushEffect, wall.transform.position, wall.transform.rotation);
                     }
-                  
+
                 }
             }
-           
+
         }
         speedy = rb.velocity.magnitude;
         // Keyboard input
@@ -105,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             swipePosSecond = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        } 
+        }
         if (Input.GetKeyDown(KeyCode.C))
         {
             canCrush = !canCrush;
@@ -175,16 +184,17 @@ public class PlayerMovement : MonoBehaviour
         direction = forSetDirection.normalized;
 
         transform.rotation = Quaternion.LookRotation(direction);
-
+        transform.GetChild(0).DOScale(.35f, .1f);
+        transform.GetChild(0).DOScale(.5f, .3f);
         // Raycast to find the next wall position
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f,layer))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 100f, layer))
         {
             nextWallPos = hit.point;
             wall = hit.collider.gameObject;
         }
         isMoving = false;
         MoveCam(direction);
-     
+
     }
     void MoveCam(Vector3 forSetDirection)
     {

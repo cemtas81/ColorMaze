@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 200
-  upAbove: 0
-  spinner: {fileID: 0}
+  upAbove: 3
+  spinner: {fileID: 5559907295112144093}
   moveDuration: 1
   particle: {fileID: 5245542435479125754}
 --- !u!65 &2194674088145142200
@@ -267,6 +267,12 @@ PrefabInstance:
 --- !u!4 &5071918043889892967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d5081e0aa2a14224d840feb3cbb2e997,
+    type: 3}
+  m_PrefabInstance: {fileID: 4749516311221901708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5559907295112144093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d5081e0aa2a14224d840feb3cbb2e997,
     type: 3}
   m_PrefabInstance: {fileID: 4749516311221901708}
   m_PrefabAsset: {fileID: 0}

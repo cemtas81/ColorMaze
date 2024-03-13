@@ -18,11 +18,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     List<Vector3> groundPositions = new List<Vector3>(); // Store positions of ground prefabs
     private void Start()
     {
-        currentLevel = PlayerPrefs.GetInt("lastLevel", 0); // Default to level 1 if not set
+        currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
         levelText.text = ("Level" + ":" + currentLevel.ToString());
-        // Generate a random number between 0 and 1
-        
 
     }
     void GenerateMazeForCurrentLevel()
