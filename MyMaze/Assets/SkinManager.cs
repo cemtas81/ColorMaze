@@ -1,7 +1,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class SkinManager : MonoBehaviour
@@ -13,7 +12,6 @@ public class SkinManager : MonoBehaviour
     private int skinCount, matCount;
     public bool skin2Purchased, skin3Purchased, mat1Purchased;
     public List<bool> purchasedMatsAndSkins;
-
 
     private void Start()
     {
@@ -54,7 +52,7 @@ public class SkinManager : MonoBehaviour
     public void Bowin()
     {
         PlayerPrefs.SetInt("Skin", 0);
-        DeactivateSkins();      
+        DeactivateSkins();
     }
 
 }

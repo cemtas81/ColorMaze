@@ -14,14 +14,12 @@ public class SimpleMazeGenerator : MonoBehaviour
     public Text levelText;
     private int currentLevel;
     public float instantiationProbability=.5f, randomNumber,randomNumberUfo,ufoProbability;
-  
-    List<Vector3> groundPositions = new List<Vector3>(); // Store positions of ground prefabs
+    private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
         levelText.text = ("Level" + ":" + currentLevel.ToString());
-
     }
     void GenerateMazeForCurrentLevel()
     {
@@ -48,9 +46,7 @@ public class SimpleMazeGenerator : MonoBehaviour
 
         // Variables to store the player's starting position
         int playerStartX = -1;
-        int playerStartY = -1;
-
-        
+        int playerStartY = -1;      
 
         // Instantiate GameObjects based on mazeData
         for (int i = 0; i < width; i++)

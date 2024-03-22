@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maze1.unity
     guid: 7629b25727310774f9af596facf4a091
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: 082af477054b8b047875198cf7e11623
+  - enabled: 1
+    path: Assets/Scenes/Leaderboard.unity
+    guid: 98f0c2eb95856b246a811c9dc11b419c
   m_configObjects: {}
