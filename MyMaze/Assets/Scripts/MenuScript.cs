@@ -10,6 +10,19 @@ public class MenuScript : MonoBehaviour
     public AudioClip clip1;
     public AudioSource effectSounds;
     public AudioSource music;
+    private Animator ani;
+
+    private void Start()
+    {
+        ani=settings.GetComponent<Animator>();  
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SettingsMenu();
+        }
+    }
     public void MuteVolume()
     {
         if (music.isPlaying)
@@ -61,7 +74,16 @@ public class MenuScript : MonoBehaviour
     public void SettingsMenu()
     {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        settings.SetActive(!settings.activeSelf);
+        if (Time.timeScale==1)
+        {
+            ani.SetBool("UnSlide",true);
+            ani.SetBool("Slide", false);
+        }
+        else if (Time.timeScale==0)
+        {
+            ani.SetBool("UnSlide", false);
+            ani.SetBool("Slide", true);
+        }
         effectSounds.PlayOneShot(clip1);
     }
     public void ExitGame()
