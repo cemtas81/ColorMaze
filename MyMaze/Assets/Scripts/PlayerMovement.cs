@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if (Time.timeScale != 1)
+            return;
         if (nextWallPos != Vector3.zero)
         {
             if (!canCrush)
@@ -181,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetDirection(Vector3 forSetDirection)
     {
+       
         direction = forSetDirection.normalized;
 
         transform.rotation = Quaternion.LookRotation(direction);

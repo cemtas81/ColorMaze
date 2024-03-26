@@ -23,7 +23,7 @@ public class Ufo : MonoBehaviour
     }
     IEnumerator GoAway()
     {
-        yield return new WaitForSecondsRealtime(10);
+        yield return new WaitForSeconds(10);
         leaving = true; 
         particle.Stop();
         GetComponent<BoxCollider>().enabled = false;

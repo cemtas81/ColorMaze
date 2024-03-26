@@ -14,7 +14,8 @@ public class MenuScript : MonoBehaviour
 
     private void Start()
     {
-        ani=settings.GetComponent<Animator>();  
+        ani=settings.GetComponent<Animator>();
+        Time.timeScale = 1;
     }
     private void Update()
     {
@@ -98,13 +99,13 @@ public class MenuScript : MonoBehaviour
     } 
     IEnumerator GameOn()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSecondsRealtime(.2f);
         SceneManager.LoadScene(2);
     }
     IEnumerator Main()
     {
         Time.timeScale = 1;
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSecondsRealtime(.2f);
         SceneManager.LoadScene(0);
     }
     IEnumerator Shopping()
