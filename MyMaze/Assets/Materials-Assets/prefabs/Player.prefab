@@ -263,7 +263,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   speed: 50
-  watersound: {fileID: 0}
+  watersound: {fileID: 6445665102300706657}
   forsound: 0
   canCrush: 0
   minSwipeRange: 500
@@ -341,7 +341,8 @@ AudioSource:
   m_GameObject: {fileID: 3153231606762315876}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1548451609589712577, guid: 4aa8560d6146a4fc98a1a0325ef0201a,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: dfb7390fe33709a459baad62aba7568c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
