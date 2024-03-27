@@ -10,8 +10,8 @@ using Random = UnityEngine.Random;
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10, height = 10, currentCell;
-    public GameObject groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke, wallPrefab, warpPrefab,ufo;
-    public Text levelText;
+    public GameObject completed,groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke, wallPrefab, warpPrefab,ufo;
+    public Text levelText,levelText2;
     private int currentLevel;
     public float instantiationProbability=.5f, randomNumber,randomNumberUfo,ufoProbability;
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
@@ -20,6 +20,7 @@ public class SimpleMazeGenerator : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
         GenerateMazeForCurrentLevel();
         levelText.text = ("Level" + ":" + currentLevel.ToString());
+        completed.SetActive(false);
     }
     void GenerateMazeForCurrentLevel()
     {
@@ -178,7 +179,7 @@ public class SimpleMazeGenerator : MonoBehaviour
         return mazeData;
     }
 
-    void NextLevel()
+    public void NextLevel()
     {
         currentLevel++;
         PlayerPrefs.SetInt("lastLevel", currentLevel);
@@ -194,7 +195,10 @@ public class SimpleMazeGenerator : MonoBehaviour
         // Add your logic for finishing the current level
         Debug.Log("Finished");
         // Proceed to the next level
-        NextLevel();
+        //NextLevel();
+        completed.SetActive(true);
+        levelText2.text = levelText.text; 
+        Time.timeScale = 0;
     }
     public void Warp(GameObject passenger)
     {
