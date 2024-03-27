@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
@@ -11,40 +12,30 @@ public class MenuScript : MonoBehaviour
     public AudioSource effectSounds;
     public AudioSource music;
     private Animator ani;
-
+    public Toggle musicT;
+    public Toggle sfxT;
     private void Start()
     {
-        ani=settings.GetComponent<Animator>();
+        if (settings != null)
+        {
+            ani = settings.GetComponent<Animator>();
+        }
         Time.timeScale = 1;
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)&& settings != null)
         {
             SettingsMenu();
         }
     }
     public void MuteVolume()
     {
-        if (music.isPlaying)
-        {
-            music.Stop();
-        }
-        else
-        {
-            music.Play();
-        }
+        musicT.isOn = !musicT.isOn;
     }
     public void MuteSfx()
     {
-        if (effectSounds.isPlaying)
-        {
-            effectSounds.Stop();
-        }
-        else
-        {
-            effectSounds.Play();
-        }
+        sfxT.isOn = !sfxT.isOn;
     }
     
     public void StartLevel()
