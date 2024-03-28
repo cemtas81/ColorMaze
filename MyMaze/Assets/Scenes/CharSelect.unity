@@ -6364,8 +6364,8 @@ MonoBehaviour:
   musicSlider: {fileID: 411346952}
   sfxSlider: {fileID: 1351475248}
   _multiplier: 30
-  _musicVol: MusicVolume
-  _sfxVol: SfxVolume
+  _musicVol: MusicVol
+  _sfxVol: SfxVol
   musicToggle: {fileID: 1875207585}
   sfxToggle: {fileID: 2062680339}
 --- !u!1 &336809996

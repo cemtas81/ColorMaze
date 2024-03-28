@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,9 @@ public class CountDownTimer : MonoBehaviour
     public Animator anim;
     private bool over;
     private PlayerMovement player;
+    public TMP_Text bonus;
+    public TMP_Text deploy;
+    public int bonusTime;
     void Start()
     {
         // Call the Countdown function when the script starts
@@ -60,22 +65,57 @@ public class CountDownTimer : MonoBehaviour
     }
     void UpdateCountdownText()
     {
-        // Display the current countdown time as an integer
-        countdownText.text = Mathf.CeilToInt(countdownTime).ToString();
-    }
-    public void ExtractOneSecond(float extract)
-    {
-        countdownTime -= extract;
-
-        // Ensure that the countdown doesn't go below zero
         if (countdownTime < 0)
         {
             countdownTime = 0;
             // You can add any additional actions or logic when the countdown reaches zero here
         }
+        // Display the current countdown time as an integer
 
-        // Update the UI Text component with the current countdown time
+        countdownText.text = Mathf.CeilToInt(countdownTime).ToString();
+    }
+    public void ExtractOneSecond()
+    {
+        //countdownTime -= extract;
+
+        //// Ensure that the countdown doesn't go below zero
+        //if (countdownTime < 0)
+        //{
+        //    countdownTime = 0;
+        //    // You can add any additional actions or logic when the countdown reaches zero here
+        //}
+        //deploy.enabled = true;
+        //deploy.text="-"+extract.ToString();
+        //StartCoroutine(EraseBonusText(deploy));
+        //// Update the UI Text component with the current countdown time
+        //UpdateCountdownText();
+        
+        bonusTime++;
+        StartCoroutine(EraseBonusText(deploy,"-"));
+    }
+    IEnumerator EraseBonusText(TMP_Text bonus,String symbol)
+    {
+        
+        yield return new WaitForSeconds(.2f);
+        bonus.enabled = true;
+        bonus.text = symbol + bonusTime.ToString();       
+        yield return new WaitForSeconds(.2f);
+        bonus.enabled=false;
+        if (symbol == "-")
+
+            countdownTime -= bonusTime;
+        else
+            countdownTime += bonusTime;
+        bonusTime = 0;
         UpdateCountdownText();
+        
+    }
+    public void AddSecond()
+    {
+
+        bonusTime++;
+        StartCoroutine(EraseBonusText(bonus,"+"));
+
     }
     void StartCountdown()
     {

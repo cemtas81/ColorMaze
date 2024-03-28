@@ -2460,7 +2460,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.0001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6102,8 +6102,8 @@ MonoBehaviour:
   clip1: {fileID: 8300000, guid: dd6768acfd6294fb9b6081fe129440d1, type: 3}
   effectSounds: {fileID: 408883912}
   music: {fileID: 0}
-  musicT: {fileID: 0}
-  sfxT: {fileID: 0}
+  musicT: {fileID: 262330816}
+  sfxT: {fileID: 1235791984}
 --- !u!114 &1952694832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6120,8 +6120,8 @@ MonoBehaviour:
   musicSlider: {fileID: 675595569}
   sfxSlider: {fileID: 1651137268}
   _multiplier: 30
-  _musicVol: MusicVolume
-  _sfxVol: SfxVolume
+  _musicVol: MusicVol
+  _sfxVol: SfxVol
   musicToggle: {fileID: 262330816}
   sfxToggle: {fileID: 1235791984}
 --- !u!1660057539 &9223372036854775807

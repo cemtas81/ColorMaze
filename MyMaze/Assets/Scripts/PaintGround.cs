@@ -14,22 +14,22 @@ public class PaintGround : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_countdownTimer=FindAnyObjectByType<CountDownTimer>();
+        m_countdownTimer = FindAnyObjectByType<CountDownTimer>();
         currentcolor = GetComponent<MeshRenderer>().material;
         part = GetComponentInChildren<ParticleSystem>();
-        m_generator=FindAnyObjectByType<SimpleMazeGenerator>();
+        m_generator = FindAnyObjectByType<SimpleMazeGenerator>();
         m_generator.currentCell++;
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") )
+        if (other.gameObject.CompareTag("Player"))
         {
             if (currentcolor != nextcolor)
             {
                 currentcolor.DOColor(nextcolor.color, 0.1f);
                 currentcolor = nextcolor; // because of painted doesn't increase again
-
+                m_countdownTimer.AddSecond();
                 part.Play();
                 m_generator.currentCell--;
                 if (m_generator.currentCell < 1)
@@ -39,10 +39,9 @@ public class PaintGround : MonoBehaviour
             }
             else
             {
-                m_countdownTimer.ExtractOneSecond(1);
+                m_countdownTimer.ExtractOneSecond();
             }
         }
-        
 
     }
 

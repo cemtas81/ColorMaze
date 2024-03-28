@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private List<Material> mats;
     [SerializeField] private MeshRenderer mesh;
     private int SkinCount, matCount;
+  
     void Start()
     {
         watersound = GetComponent<AudioSource>();
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         skins[SkinCount].SetActive(true);
         matCount = PlayerPrefs.GetInt("Mat");
         mesh.material = mats[matCount];
+
     }
 
     private void FixedUpdate()
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.9f);
         isMoving = false;
         targetDecided = true;
     }

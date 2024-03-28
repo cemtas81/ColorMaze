@@ -24,11 +24,10 @@ public class Ufo : MonoBehaviour
     IEnumerator GoAway()
     {
         yield return new WaitForSeconds(10);
-        leaving = true; 
+        leaving = true;
         particle.Stop();
         GetComponent<BoxCollider>().enabled = false;
         MoveUfoToRandomPosition(true);
-
     }
     private IEnumerator Spin()
     {
