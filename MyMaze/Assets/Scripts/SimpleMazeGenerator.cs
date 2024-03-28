@@ -1,7 +1,9 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,10 +12,11 @@ using Random = UnityEngine.Random;
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10, height = 10, currentCell;
-    public GameObject completed,groundPrefab,playerPrefab,trapPrefab,leftSpacePrefab,rightSpacePrefab, outsidePrefab,warpSmoke, wallPrefab, warpPrefab,ufo;
-    public Text levelText,levelText2;
+    public GameObject completed, groundPrefab, playerPrefab, trapPrefab, leftSpacePrefab, rightSpacePrefab, outsidePrefab, warpSmoke, wallPrefab, warpPrefab, ufo;
+    public Text levelText, levelText2;
+    public TMP_Text diamond;
     private int currentLevel;
-    public float instantiationProbability=.5f, randomNumber,randomNumberUfo,ufoProbability;
+    public float instantiationProbability = .5f, randomNumber, randomNumberUfo, ufoProbability;
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
     private void Start()
     {
@@ -47,7 +50,7 @@ public class SimpleMazeGenerator : MonoBehaviour
 
         // Variables to store the player's starting position
         int playerStartX = -1;
-        int playerStartY = -1;      
+        int playerStartY = -1;
 
         // Instantiate GameObjects based on mazeData
         for (int i = 0; i < width; i++)
@@ -102,9 +105,9 @@ public class SimpleMazeGenerator : MonoBehaviour
                 // Instantiate your object on the random ground position
                 Instantiate(warpPrefab, randomGroundPosition, Quaternion.identity);
             }
-            if (randomNumberUfo<=ufoProbability)
+            if (randomNumberUfo <= ufoProbability)
             {
-                ufo.SetActive(true);    
+                ufo.SetActive(true);
             }
         }
 
@@ -196,16 +199,25 @@ public class SimpleMazeGenerator : MonoBehaviour
         Debug.Log("Finished");
         // Proceed to the next level
         //NextLevel();
-        completed.SetActive(true);
-        levelText2.text = levelText.text; 
+        diamond.enabled = true;
+        diamond.gameObject.GetComponent<Animator>().enabled = true;
+        StartCoroutine(LevelEnd());
+
         Time.timeScale = 0;
+    }
+    IEnumerator LevelEnd()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        diamond.gameObject.GetComponent<Animator>().enabled = false;
+        completed.SetActive(true);
+        levelText2.text = levelText.text;
     }
     public void Warp(GameObject passenger)
     {
         Vector3 randomGroundPosition = groundPositions[Random.Range(0, groundPositions.Count)];
         randomGroundPosition.y = passenger.transform.position.y;
-        passenger.transform.position=randomGroundPosition;
-        Instantiate(warpSmoke,new(randomGroundPosition.x,2,randomGroundPosition.z),Quaternion.identity); 
+        passenger.transform.position = randomGroundPosition;
+        Instantiate(warpSmoke, new(randomGroundPosition.x, 2, randomGroundPosition.z), Quaternion.identity);
     }
     public void UfoMove(GameObject ufo)
     {

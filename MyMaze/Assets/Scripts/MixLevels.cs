@@ -63,11 +63,11 @@ public class MixLevels : MonoBehaviour
             return;
         if (music)
 
-            musicSlider.value=musicSlider.maxValue;
+            musicSlider.value = musicSlider.maxValue;
 
         else
 
-            musicSlider.value=musicSlider.minValue;
+            musicSlider.value = musicSlider.minValue;
 
     }
     private void OnDisable()

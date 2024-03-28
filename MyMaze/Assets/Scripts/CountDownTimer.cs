@@ -12,9 +12,9 @@ public class CountDownTimer : MonoBehaviour
     public Animator anim;
     private bool over;
     private PlayerMovement player;
-    public TMP_Text bonus;
-    public TMP_Text deploy;
+    public TMP_Text bonus, deploy,diamond;
     public int bonusTime;
+
     void Start()
     {
         // Call the Countdown function when the script starts
@@ -68,11 +68,11 @@ public class CountDownTimer : MonoBehaviour
         if (countdownTime < 0)
         {
             countdownTime = 0;
-            // You can add any additional actions or logic when the countdown reaches zero here
         }
         // Display the current countdown time as an integer
 
         countdownText.text = Mathf.CeilToInt(countdownTime).ToString();
+        diamond.text=countdownText.text;
     }
     public void ExtractOneSecond()
     {
