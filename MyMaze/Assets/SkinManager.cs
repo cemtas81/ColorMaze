@@ -1,90 +1,118 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkinManager : MonoBehaviour
 {
-   
     public SkinnedMeshRenderer mesh;
     public List<GameObject> skins;
     public GameObject prefab;
     private int skinCount, matCount, totalGem;
-    //public bool skin2Purchased, skin3Purchased, mat1Purchased;
-    //public List<bool> purchasedMatsAndSkins;
-    public List<SkinOrMat> chars; 
+    public List<SkinOrMat> chars;
     public List<SkinOrMat> scriptableSkins;
     public Text charName;
     public MenuScript script;
+
+    private const string MAT_KEY = "Mat";
+    private const string SKIN_KEY = "Skin";
+    private const string SCORE_KEY = "Score";
+    private const string NAME_KEY = "Name";
+
     private void Start()
     {
-        skinCount = PlayerPrefs.GetInt("Skin");
-        skins[skinCount].SetActive(true);
-        matCount = PlayerPrefs.GetInt("Mat");
+        // Load saved data
+        matCount = PlayerPrefs.GetInt(MAT_KEY, 0);
+        skinCount = PlayerPrefs.GetInt(SKIN_KEY, 0);
+        totalGem = PlayerPrefs.GetInt(SCORE_KEY, 0);
+        charName.text = PlayerPrefs.GetString(NAME_KEY, chars[0].Charname);
+
+        // Set character material
         mesh.material = chars[matCount].mat;
-        totalGem = PlayerPrefs.GetInt("Score");
-        if (PlayerPrefs.GetString("Name") == "")
 
-            charName.text = chars[0].Charname;
+        // Activate selected skin
+        skins[skinCount].SetActive(true);
 
-        else
-            charName.text = PlayerPrefs.GetString("Name");
+        // Load purchased states
+        LoadPurchasedStates(chars, "Character_");
+        LoadPurchasedStates(scriptableSkins, "ScriptableSkin_");
     }
+
+    private void LoadPurchasedStates(List<SkinOrMat> items, string keyPrefix)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            bool purchased = PlayerPrefs.GetInt(keyPrefix + i, 0) == 1;
+            items[i].purchased = purchased;
+        }
+    }
+
     public void ButtonClick(int ButtonNo)
     {
-
         if (ButtonNo <= 19)
         {
-
-            if (chars[ButtonNo].purchased)
-            {
-                mesh.material = chars[ButtonNo].mat;
-                charName.text = chars[ButtonNo].Charname;
-                PlayerPrefs.SetInt("Mat", ButtonNo);
-                PlayerPrefs.SetString("Name", charName.text);
-            }
-            else
-            {
-                if (totalGem >= chars[ButtonNo].price)
-                {
-                    mesh.material = chars[ButtonNo].mat;
-                    charName.text = chars[ButtonNo].Charname;
-                    PlayerPrefs.SetInt("Mat", ButtonNo);
-                    PlayerPrefs.SetString("Name", charName.text);
-                    totalGem -= chars[ButtonNo].price;                
-                    chars[ButtonNo].purchased = true;
-                    UpdateGem();
-                }
-            }
+            HandleCharacterButtonClick(ButtonNo);
         }
         else
         {
-            if (scriptableSkins[ButtonNo - 19].purchased)
+            HandleScriptableSkinButtonClick(ButtonNo);
+        }
+
+        // Save game state
+        SaveGameState();
+    }
+
+    private void HandleCharacterButtonClick(int ButtonNo)
+    {
+        if (chars[ButtonNo].purchased || totalGem >= chars[ButtonNo].price)
+        {
+            mesh.material = chars[ButtonNo].mat;
+            charName.text = chars[ButtonNo].Charname;
+            matCount = ButtonNo;
+            PlayerPrefs.SetInt(MAT_KEY, matCount);
+            PlayerPrefs.SetString(NAME_KEY, charName.text);
+
+            if (!chars[ButtonNo].purchased)
             {
-                PlayerPrefs.SetInt("Skin", ButtonNo - 19);
-                DeactivateSkins();
-                skins[ButtonNo - 19].SetActive(true);
-            }
-            else if (totalGem > scriptableSkins[ButtonNo - 19].price)
-            {
-                PlayerPrefs.SetInt("Skin", ButtonNo - 19);
-                DeactivateSkins();
-                skins[ButtonNo - 19].SetActive(true);
-                totalGem -= scriptableSkins[ButtonNo-19].price;
-                scriptableSkins[ButtonNo-19].purchased = true;
+                totalGem -= chars[ButtonNo].price;
+                chars[ButtonNo].purchased = true;
+                PlayerPrefs.SetInt("Character_" + ButtonNo, 1);
                 UpdateGem();
             }
-           
         }
+    }
+
+    private void HandleScriptableSkinButtonClick(int ButtonNo)
+    {
+        if (scriptableSkins[ButtonNo - 19].purchased || totalGem > scriptableSkins[ButtonNo - 19].price)
+        {
+            skinCount = ButtonNo - 19;
+            PlayerPrefs.SetInt(SKIN_KEY, skinCount);
+            DeactivateSkins();
+            skins[skinCount].SetActive(true);
+
+            if (!scriptableSkins[ButtonNo - 19].purchased)
+            {
+                totalGem -= scriptableSkins[ButtonNo - 19].price;
+                scriptableSkins[ButtonNo - 19].purchased = true;
+                PlayerPrefs.SetInt("ScriptableSkin_" + (ButtonNo - 19), 1);
+                UpdateGem();
+            }
+        }
+    }
+
+    private void SaveGameState()
+    {
+        PlayerPrefs.SetInt(SCORE_KEY, totalGem);
         PlayerPrefs.Save();
     }
-    void UpdateGem()
+
+    private void UpdateGem()
     {
         script.diamond.text = totalGem.ToString();
-        PlayerPrefs.SetInt("Score", totalGem);
-        PlayerPrefs.Save();
+        SaveGameState();
     }
-    void DeactivateSkins()
+
+    private void DeactivateSkins()
     {
         foreach (GameObject skin in skins)
         {
@@ -96,5 +124,4 @@ public class SkinManager : MonoBehaviour
         PlayerPrefs.SetInt("Skin", 0);
         DeactivateSkins();
     }
-
 }
