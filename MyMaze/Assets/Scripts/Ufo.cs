@@ -17,7 +17,7 @@ public class Ufo : MonoBehaviour
         m_Generator.UfoMove(this.gameObject);
         // Start a continuous rotation
         StartCoroutine(Spin());
-        timer = FindObjectOfType<CountDownTimer>();
+        timer =CountDownTimer.instance;
         StartCoroutine(GoAway());
 
     }

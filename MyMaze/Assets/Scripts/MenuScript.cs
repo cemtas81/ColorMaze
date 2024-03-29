@@ -14,6 +14,7 @@ public class MenuScript : MonoBehaviour
     private Animator ani;
     public Toggle musicT;
     public Toggle sfxT;
+    public Text diamond;
     private void Start()
     {
         if (settings != null)
@@ -21,6 +22,8 @@ public class MenuScript : MonoBehaviour
             ani = settings.GetComponent<Animator>();
         }
         Time.timeScale = 1;
+        if(diamond != null)
+        diamond.text = PlayerPrefs.GetInt("Score").ToString();
     }
     private void Update()
     {

@@ -10,11 +10,11 @@ public class CountDownTimer : MonoBehaviour
     public Text countdownText;  // Reference to the UI Text component to display the countdown
     private SimpleMazeGenerator m_Generator;
     public Animator anim;
-    private bool over;
+    public bool over;
     private PlayerMovement player;
-    public TMP_Text bonus, deploy,diamond;
+    public TMP_Text bonus, deploy,diamond,totalDiamond;
     public int bonusTime;
-
+    public static CountDownTimer instance;
     void Start()
     {
         // Call the Countdown function when the script starts
@@ -23,8 +23,19 @@ public class CountDownTimer : MonoBehaviour
         countdownText.GetComponent<Text>();
         m_Generator=FindAnyObjectByType<SimpleMazeGenerator>();
         over = false;
+        totalDiamond.text=PlayerPrefs.GetInt("Score").ToString();
     }
-
+    private void Awake()
+    {
+        if (instance!=null&&instance!=this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance=this;
+        }
+    }
     void Update()
     {
         if (!over)
@@ -48,7 +59,10 @@ public class CountDownTimer : MonoBehaviour
         }
        
     }
-
+    public void MenuRestart()
+    {
+        over = true;
+    }
     public IEnumerator GameOver(int anime)
     {
         over = true;
@@ -73,6 +87,7 @@ public class CountDownTimer : MonoBehaviour
 
         countdownText.text = Mathf.CeilToInt(countdownTime).ToString();
         diamond.text=countdownText.text;
+        
     }
     public void ExtractOneSecond()
     {
