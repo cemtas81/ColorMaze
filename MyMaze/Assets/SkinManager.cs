@@ -6,13 +6,14 @@ public class SkinManager : MonoBehaviour
 {
     public SkinnedMeshRenderer mesh;
     public List<GameObject> skins;
+    public List<GameObject> characterLocks; // List of character lock GameObjects
+    public List<GameObject> scriptableSkinLocks; // List of scriptable skin lock GameObjects
     public GameObject prefab;
     private int skinCount, matCount, totalGem;
     public List<SkinOrMat> chars;
     public List<SkinOrMat> scriptableSkins;
     public Text charName;
     public MenuScript script;
-
     private const string MAT_KEY = "Mat";
     private const string SKIN_KEY = "Skin";
     private const string SCORE_KEY = "Score";
@@ -33,17 +34,25 @@ public class SkinManager : MonoBehaviour
         skins[skinCount].SetActive(true);
 
         // Load purchased states
-        LoadPurchasedStates(chars, "Character_");
-        LoadPurchasedStates(scriptableSkins, "ScriptableSkin_");
+        LoadPurchasedStates(chars, characterLocks, "Character_");
+        LoadPurchasedStates(scriptableSkins, scriptableSkinLocks, "ScriptableSkin_");
     }
 
-    private void LoadPurchasedStates(List<SkinOrMat> items, string keyPrefix)
+    private void LoadPurchasedStates(List<SkinOrMat> items, List<GameObject> locks, string keyPrefix)
     {
         for (int i = 0; i < items.Count; i++)
         {
             bool purchased = PlayerPrefs.GetInt(keyPrefix + i, 0) == 1;
             items[i].purchased = purchased;
+
+            // Deactivate lock if purchased
+            if (purchased && locks.Count > i)
+            {
+                locks[i-1].SetActive(false);
+            }
         }
+        chars[0].purchased = true;
+        scriptableSkins[0].purchased = true;
     }
 
     public void ButtonClick(int ButtonNo)
@@ -77,6 +86,12 @@ public class SkinManager : MonoBehaviour
                 chars[ButtonNo].purchased = true;
                 PlayerPrefs.SetInt("Character_" + ButtonNo, 1);
                 UpdateGem();
+
+                // Deactivate lock
+                if (characterLocks.Count > ButtonNo)
+                {
+                    characterLocks[ButtonNo].SetActive(false);
+                }
             }
         }
     }
@@ -96,6 +111,12 @@ public class SkinManager : MonoBehaviour
                 scriptableSkins[ButtonNo - 19].purchased = true;
                 PlayerPrefs.SetInt("ScriptableSkin_" + (ButtonNo - 19), 1);
                 UpdateGem();
+
+                // Deactivate lock
+                if (scriptableSkinLocks.Count > ButtonNo - 19)
+                {
+                    scriptableSkinLocks[ButtonNo - 20].SetActive(false);
+                }
             }
         }
     }
