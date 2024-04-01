@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-    public GameObject settings;
+    public GameObject settings,shadow;
     public AudioClip clip1;
     public AudioSource effectSounds;
     public AudioSource music;
@@ -71,11 +71,13 @@ public class MenuScript : MonoBehaviour
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         if (Time.timeScale==1)
         {
+            shadow.SetActive(false);
             ani.SetBool("UnSlide",true);
             ani.SetBool("Slide", false);
         }
         else if (Time.timeScale==0)
         {
+            shadow.SetActive(true);
             ani.SetBool("UnSlide", false);
             ani.SetBool("Slide", true);
         }
