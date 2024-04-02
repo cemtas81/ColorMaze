@@ -91,20 +91,7 @@ public class CountDownTimer : MonoBehaviour
     }
     public void ExtractOneSecond()
     {
-        //countdownTime -= extract;
-
-        //// Ensure that the countdown doesn't go below zero
-        //if (countdownTime < 0)
-        //{
-        //    countdownTime = 0;
-        //    // You can add any additional actions or logic when the countdown reaches zero here
-        //}
-        //deploy.enabled = true;
-        //deploy.text="-"+extract.ToString();
-        //StartCoroutine(EraseBonusText(deploy));
-        //// Update the UI Text component with the current countdown time
-        //UpdateCountdownText();
-        
+     
         bonusTime++;
         StartCoroutine(EraseBonusText(deploy,"-"));
     }

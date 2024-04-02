@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 public class SimpleMazeGenerator : MonoBehaviour
 {
     public int width = 10, height = 10, currentCell;
-    public GameObject completed, groundPrefab, playerPrefab, trapPrefab, leftSpacePrefab, rightSpacePrefab, outsidePrefab, warpSmoke, wallPrefab, warpPrefab, ufo;
+    public GameObject completed, groundPrefab, playerPrefab, trapPrefab, leftSpacePrefab, rightSpacePrefab, outsidePrefab, warpSmoke, wallPrefab, warpPrefab, ufo,diamondGo,completedAvatar;
     public Text levelText, levelText2;
     public TMP_Text diamond;
     private int currentLevel;
@@ -187,9 +187,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     public void NextLevel()
     {
         currentLevel++;
-        PlayerPrefs.SetInt("lastLevel", currentLevel);
-        //GenerateMazeForCurrentLevel();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(ScoreAdd());
+        diamondGo.SetActive(true);
+
     }
     public void RestartLevel()
     {
@@ -205,24 +205,31 @@ public class SimpleMazeGenerator : MonoBehaviour
     {
         // Add your logic for finishing the current level
         Debug.Log("Finished");
-        // Proceed to the next level
-        //NextLevel();
-        diamond.enabled = true;
-        diamond.gameObject.GetComponent<Animator>().enabled = true;
+   
         StartCoroutine(LevelEnd());
 
         Time.timeScale = 0;
     }
-    IEnumerator LevelEnd()
+    IEnumerator ScoreAdd()
     {
         yield return new WaitForSecondsRealtime(1);
-        diamond.gameObject.GetComponent<Animator>().enabled = false;     
+        PlayerPrefs.SetInt("lastLevel", currentLevel);
+        
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + Mathf.CeilToInt(timer.countdownTime));
         timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
+        yield return new WaitForSecondsRealtime(1);
         PlayerPrefs.Save();
+        //GenerateMazeForCurrentLevel();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    IEnumerator LevelEnd()
+    {
+  
         yield return new WaitForSecondsRealtime(1);
        
         completed.SetActive(true);
+        //avatar.SetActive(false);
+        completedAvatar.SetActive(true);
         levelText2.text = levelText.text;
     }
     public void Warp(GameObject passenger)

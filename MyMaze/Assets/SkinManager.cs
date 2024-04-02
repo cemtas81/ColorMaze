@@ -48,7 +48,12 @@ public class SkinManager : MonoBehaviour
             // Deactivate lock if purchased
             if (purchased && locks.Count > i)
             {
-                locks[i-1].SetActive(false);
+                if (keyPrefix == "ScriptableSkin_")
+
+                    locks[i - 1].SetActive(false);
+
+                else
+                    locks[i].SetActive(false);
             }
         }
         chars[0].purchased = true;
