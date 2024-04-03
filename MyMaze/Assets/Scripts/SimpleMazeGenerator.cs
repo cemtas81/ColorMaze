@@ -19,6 +19,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     public float instantiationProbability = .5f, randomNumber, randomNumberUfo, ufoProbability;
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
     private CountDownTimer timer;
+    public ParticleSystem stars;
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
@@ -194,12 +195,12 @@ public class SimpleMazeGenerator : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        if (!timer.over)
-        {
-            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") - Mathf.CeilToInt(timer.countdownTime));
-            timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
-            PlayerPrefs.Save();
-        }         
+        //if (!timer.over)
+        //{
+        //    PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") - Mathf.CeilToInt(timer.countdownTime));
+        //    timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
+        //    PlayerPrefs.Save();
+        //}         
     }
     public void FinishCurrentLevel()
     {
@@ -214,7 +215,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1);
         PlayerPrefs.SetInt("lastLevel", currentLevel);
-        
+        timer.diamond.enabled = false;
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + Mathf.CeilToInt(timer.countdownTime));
         timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
         yield return new WaitForSecondsRealtime(1);
@@ -230,7 +231,13 @@ public class SimpleMazeGenerator : MonoBehaviour
         completed.SetActive(true);
         //avatar.SetActive(false);
         completedAvatar.SetActive(true);
+        StartCoroutine(Stars());
         levelText2.text = levelText.text;
+    }
+    IEnumerator Stars()
+    {
+        yield return new WaitForSecondsRealtime(.6f);
+        stars.Play();
     }
     public void Warp(GameObject passenger)
     {

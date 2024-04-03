@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Char2
   m_EditorClassIdentifier: 
   Charname: Rainbow
-  price: 10
+  price: 500
   mat: {fileID: 2100000, guid: b7049c84a6099f743a680c8ba923910a, type: 2}
   purchased: 0

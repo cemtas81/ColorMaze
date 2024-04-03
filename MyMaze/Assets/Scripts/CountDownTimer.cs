@@ -12,61 +12,56 @@ public class CountDownTimer : MonoBehaviour
     public Animator anim;
     public bool over;
     private PlayerMovement player;
-    public TMP_Text bonus, deploy,diamond,totalDiamond;
+    public TMP_Text bonus, deploy, diamond, totalDiamond;
     public int bonusTime;
     public static CountDownTimer instance;
     void Start()
     {
         // Call the Countdown function when the script starts
-        player=FindObjectOfType<PlayerMovement>();   
+        player = FindObjectOfType<PlayerMovement>();
         StartCountdown();
         countdownText.GetComponent<Text>();
-        m_Generator=FindAnyObjectByType<SimpleMazeGenerator>();
+        m_Generator = FindAnyObjectByType<SimpleMazeGenerator>();
         over = false;
-        totalDiamond.text=PlayerPrefs.GetInt("Score").ToString();
+        totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
     }
     private void Awake()
     {
-        if (instance!=null&&instance!=this)
+        if (instance != null && instance != this)
         {
             Destroy(this);
         }
         else
         {
-            instance=this;
+            instance = this;
         }
     }
     void Update()
     {
-        if (!over)
+
+        // Update the countdown timer every frame
+        countdownTime -= Time.deltaTime;
+
+        // Ensure that the countdown doesn't go below zero
+        if (countdownTime <= 0)
         {
-            // Update the countdown timer every frame
-            countdownTime -= Time.deltaTime;
+            countdownTime = 0;
+            // You can add any additional actions or logic when the countdown reaches zero here
 
-            // Ensure that the countdown doesn't go below zero
-            if (countdownTime <= 0)
-            {
-                countdownTime = 0;
-                // You can add any additional actions or logic when the countdown reaches zero here
-               
-                player.enabled = false;
-                StartCoroutine(GameOver(1));
+            player.enabled = false;
+            StartCoroutine(GameOver(1));
 
-            }
-
-            // Update the UI Text component with the current countdown time
-            UpdateCountdownText();
         }
-       
+
+        // Update the UI Text component with the current countdown time
+        UpdateCountdownText();
+
     }
-    public void MenuRestart()
-    {
-        over = true;
-    }
+   
     public IEnumerator GameOver(int anime)
     {
-        over = true;
-        if (anime==1)
+     
+        if (anime == 1)
         {
             anim.SetTrigger("GameOver");
         }
@@ -86,23 +81,23 @@ public class CountDownTimer : MonoBehaviour
         // Display the current countdown time as an integer
 
         countdownText.text = Mathf.CeilToInt(countdownTime).ToString();
-        diamond.text=countdownText.text;
-        
+        diamond.text = countdownText.text;
+
     }
     public void ExtractOneSecond()
     {
-     
+
         bonusTime++;
-        StartCoroutine(EraseBonusText(deploy,"-"));
+        StartCoroutine(EraseBonusText(deploy, "-"));
     }
-    IEnumerator EraseBonusText(TMP_Text bonus,String symbol)
+    IEnumerator EraseBonusText(TMP_Text bonus, String symbol)
     {
-        
+
         yield return new WaitForSeconds(.2f);
         bonus.enabled = true;
-        bonus.text = symbol + bonusTime.ToString();       
+        bonus.text = symbol + bonusTime.ToString();
         yield return new WaitForSeconds(.2f);
-        bonus.enabled=false;
+        bonus.enabled = false;
         if (symbol == "-")
 
             countdownTime -= bonusTime;
@@ -110,13 +105,13 @@ public class CountDownTimer : MonoBehaviour
             countdownTime += bonusTime;
         bonusTime = 0;
         UpdateCountdownText();
-        
+
     }
     public void AddSecond()
     {
 
         bonusTime++;
-        StartCoroutine(EraseBonusText(bonus,"+"));
+        StartCoroutine(EraseBonusText(bonus, "+"));
 
     }
     void StartCountdown()

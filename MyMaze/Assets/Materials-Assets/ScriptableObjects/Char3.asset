@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Char3
   m_EditorClassIdentifier: 
   Charname: panda
-  price: 20
+  price: 1000
   mat: {fileID: 2100000, guid: 0559ede8a61bd46549fd56d54bac4e50, type: 2}
   purchased: 0

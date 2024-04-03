@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float speedy;
     private Rigidbody rb;
     public AudioSource watersound;
-    public bool forsound, canCrush;
+    public bool forsound, canCrush,isAvatar;
     public int minSwipeRange = 500;
     Vector3 direction, nextWallPos;
     private bool targetDecided, isMoving;
@@ -22,27 +22,37 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private List<GameObject> skins;
     [SerializeField] private List<Material> mats;
     [SerializeField] private MeshRenderer mesh;
+    [SerializeField] private SkinnedMeshRenderer skinnedMesh;
     private int SkinCount, matCount;
 
     void Start()
     {
-        watersound = GetComponent<AudioSource>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        isMoving = true;
-        _ = StartCoroutine(nameof(StartDelay));
-        targetDecided = false;
-        cam2 = FindAnyObjectByType<CinemachineFreeLook>();
-        virtualCam = FindAnyObjectByType<CinemachineVirtualCamera>();
+       
         SkinCount = PlayerPrefs.GetInt("Skin");
         skins[SkinCount].SetActive(true);
         matCount = PlayerPrefs.GetInt("Mat");
-        mesh.material = mats[matCount];
-     
+        
+        if (!isAvatar)
+        {
+            watersound = GetComponent<AudioSource>();
+            rb = gameObject.GetComponent<Rigidbody>();
+            isMoving = true;
+            _ = StartCoroutine(nameof(StartDelay));
+            targetDecided = false;
+            cam2 = FindAnyObjectByType<CinemachineFreeLook>();
+            virtualCam = FindAnyObjectByType<CinemachineVirtualCamera>();
+            mesh.material = mats[matCount];
+        }
+        else
+        {
+            skinnedMesh.material = mats[matCount];
+        }
+    
     }
 
     private void FixedUpdate()
     {
-        if (!isMoving && targetDecided)
+        if (!isMoving && targetDecided&&!isAvatar)
         {
             rb.velocity = speed * direction;
         }
@@ -56,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Time.timeScale != 1)
+        if (Time.timeScale != 1||isAvatar)
             return;
         if (nextWallPos != Vector3.zero)
         {

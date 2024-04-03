@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Skin2
   m_EditorClassIdentifier: 
   Charname: 0
-  price: 10
+  price: 1000
   mat: {fileID: 0}
   purchased: 0
