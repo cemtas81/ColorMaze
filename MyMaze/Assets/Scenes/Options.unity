@@ -977,7 +977,7 @@ MonoBehaviour:
     m_PressedTrigger: 
     m_SelectedTrigger: 
     m_DisabledTrigger: 
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1384940057}
   m_OnClick:
     m_PersistentCalls:
@@ -8976,7 +8976,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -9015,6 +9015,7 @@ MonoBehaviour:
   musicT: {fileID: 161159966}
   sfxT: {fileID: 506557209}
   diamond: {fileID: 0}
+  control: {fileID: 165867164}
 --- !u!114 &1952694835
 MonoBehaviour:
   m_ObjectHideFlags: 0

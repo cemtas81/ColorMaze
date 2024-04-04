@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float speedy;
     private Rigidbody rb;
     public AudioSource watersound;
-    public bool forsound, canCrush,isAvatar;
+    public bool forsound, canCrush, isAvatar;
     public int minSwipeRange = 500;
     Vector3 direction, nextWallPos;
     private bool targetDecided, isMoving;
@@ -24,14 +24,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private MeshRenderer mesh;
     [SerializeField] private SkinnedMeshRenderer skinnedMesh;
     private int SkinCount, matCount;
-
+    private SimpleMazeGenerator mGenerator;
     void Start()
     {
-       
+        mGenerator = FindObjectOfType<SimpleMazeGenerator>();
         SkinCount = PlayerPrefs.GetInt("Skin");
         skins[SkinCount].SetActive(true);
         matCount = PlayerPrefs.GetInt("Mat");
-        
+
         if (!isAvatar)
         {
             watersound = GetComponent<AudioSource>();
@@ -47,17 +47,20 @@ public class PlayerMovement : MonoBehaviour
         {
             skinnedMesh.material = mats[matCount];
         }
-    
+
     }
 
     private void FixedUpdate()
     {
-        if (!isMoving && targetDecided&&!isAvatar)
+        if (!isMoving && targetDecided && !isAvatar)
         {
             rb.velocity = speed * direction;
         }
     }
-
+    public void Stars()
+    {
+        mGenerator.Stars();
+    }
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(.9f);
@@ -66,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Time.timeScale != 1||isAvatar)
+        if (Time.timeScale != 1 || isAvatar)
             return;
         if (nextWallPos != Vector3.zero)
         {

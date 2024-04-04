@@ -1,5 +1,6 @@
 
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class MenuScript : MonoBehaviour
     public Toggle musicT;
     public Toggle sfxT;
     public Text diamond;
+    public Animator control;
     private void Start()
     {
         if (settings != null)
@@ -24,6 +26,11 @@ public class MenuScript : MonoBehaviour
         Time.timeScale = 1;
         if(diamond != null)
         diamond.text = PlayerPrefs.GetInt("Score").ToString();
+        if (control!=null)
+        {
+            control.SetTrigger("Highlighted");
+        }
+        
     }
     private void Update()
     {
@@ -88,6 +95,7 @@ public class MenuScript : MonoBehaviour
         effectSounds.PlayOneShot(clip1);
         StartCoroutine(Quit());
     }
+   
     IEnumerator Leader()
     {
         yield return new WaitForSeconds(.2f);

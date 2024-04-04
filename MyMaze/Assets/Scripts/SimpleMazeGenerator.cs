@@ -195,12 +195,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //if (!timer.over)
-        //{
-        //    PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") - Mathf.CeilToInt(timer.countdownTime));
-        //    timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
-        //    PlayerPrefs.Save();
-        //}         
+      
     }
     public void FinishCurrentLevel()
     {
@@ -231,12 +226,12 @@ public class SimpleMazeGenerator : MonoBehaviour
         completed.SetActive(true);
         //avatar.SetActive(false);
         completedAvatar.SetActive(true);
-        StartCoroutine(Stars());
+        //StartCoroutine(Stars());
         levelText2.text = levelText.text;
     }
-    IEnumerator Stars()
+
+    public void Stars()
     {
-        yield return new WaitForSecondsRealtime(.6f);
         stars.Play();
     }
     public void Warp(GameObject passenger)
