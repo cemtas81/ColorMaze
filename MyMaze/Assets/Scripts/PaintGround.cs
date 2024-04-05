@@ -29,7 +29,11 @@ public class PaintGround : MonoBehaviour
             {
                 currentcolor.DOColor(nextcolor.color, 0.1f);
                 currentcolor = nextcolor; // because of painted doesn't increase again
-                m_countdownTimer.AddSecond();
+                //m_countdownTimer.AddSecond();
+                if (other.gameObject.TryGetComponent(out PlayerMovement plyr))
+                {
+                    plyr.isBonus = true;
+                }
                 part.Play();
                 m_generator.currentCell--;
                 if (m_generator.currentCell < 1)
@@ -39,7 +43,11 @@ public class PaintGround : MonoBehaviour
             }
             else
             {
-                m_countdownTimer.ExtractOneSecond();
+                //m_countdownTimer.ExtractOneSecond();
+                if (other.gameObject.TryGetComponent(out PlayerMovement plyr))
+                {
+                    plyr.isDeploy= true;
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using System.Collections.Generic;
+using UnityEditor.XR;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float speedy;
     private Rigidbody rb;
     public AudioSource watersound;
-    public bool forsound, canCrush, isAvatar;
+    public bool forsound, canCrush, isAvatar, isBonus, isDeploy;
     public int minSwipeRange = 500;
     Vector3 direction, nextWallPos;
     private bool targetDecided, isMoving;
@@ -24,14 +25,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private MeshRenderer mesh;
     [SerializeField] private SkinnedMeshRenderer skinnedMesh;
     private int SkinCount, matCount;
-    private SimpleMazeGenerator mGenerator;
+    private SimpleMazeGenerator mGenerator; 
+    private CountDownTimer m_countdownTimer;
     void Start()
     {
         mGenerator = FindObjectOfType<SimpleMazeGenerator>();
         SkinCount = PlayerPrefs.GetInt("Skin");
         skins[SkinCount].SetActive(true);
         matCount = PlayerPrefs.GetInt("Mat");
-
+        m_countdownTimer = FindObjectOfType<CountDownTimer>();
         if (!isAvatar)
         {
             watersound = GetComponent<AudioSource>();
@@ -81,7 +83,8 @@ public class PlayerMovement : MonoBehaviour
                     //isMoving = false;
                     direction = Vector3.zero;
                     nextWallPos = Vector3.zero;
-
+                   
+                    
                 }
             }
             else if (speedy >= 1)
@@ -99,7 +102,16 @@ public class PlayerMovement : MonoBehaviour
 
                 }
             }
-
+            if (isBonus)
+            {
+                m_countdownTimer.AddSecond();
+                isBonus = false;
+            }
+            else if (isDeploy)
+            {
+                m_countdownTimer.ExtractOneSecond();
+                isDeploy = false;
+            }
         }
         speedy = rb.velocity.magnitude;
         // Keyboard input
@@ -225,13 +237,13 @@ public class PlayerMovement : MonoBehaviour
     }
     public IEnumerator SoundManager()
     {
-
+       
         watersound.Play();
 
         yield return new WaitForSeconds(0.2f); // watersound doesn't work all the time
 
         forsound = false;
-
+        
     }
 
 }

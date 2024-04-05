@@ -15,6 +15,7 @@ public class CountDownTimer : MonoBehaviour
     public TMP_Text bonus, deploy, diamond, totalDiamond;
     public int bonusTime;
     public static CountDownTimer instance;
+    public RectTransform bonusPlace;
     void Start()
     {
         // Call the Countdown function when the script starts
@@ -57,10 +58,10 @@ public class CountDownTimer : MonoBehaviour
         UpdateCountdownText();
 
     }
-   
+
     public IEnumerator GameOver(int anime)
     {
-     
+
         if (anime == 1)
         {
             anim.SetTrigger("GameOver");
@@ -93,11 +94,12 @@ public class CountDownTimer : MonoBehaviour
     IEnumerator EraseBonusText(TMP_Text bonus, String symbol)
     {
 
-        yield return new WaitForSeconds(.2f);
-        bonus.enabled = true;
+        //yield return new WaitForSeconds(.2f);
+        Instantiate(bonus, bonusPlace);
+        //bonus.enabled = true;
         bonus.text = symbol + bonusTime.ToString();
         yield return new WaitForSeconds(.2f);
-        bonus.enabled = false;
+        //bonus.enabled = false;
         if (symbol == "-")
 
             countdownTime -= bonusTime;
