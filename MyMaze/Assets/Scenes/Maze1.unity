@@ -4424,6 +4424,8 @@ MonoBehaviour:
   forsound: 0
   canCrush: 0
   isAvatar: 1
+  isBonus: 0
+  isDeploy: 0
   minSwipeRange: 500
   virtualCam: {fileID: 0}
   cam2: {fileID: 0}
@@ -4710,7 +4712,7 @@ MonoBehaviour:
   height: 25
   currentCell: 0
   completed: {fileID: 1715660761}
-  groundPrefab: {fileID: 3485298637838965121, guid: 0e0e9e451080eed4bb1101c09e6175ce,
+  groundPrefab: {fileID: 3485298637838965121, guid: 36974d39fd46ed444981ebcf83e080e1,
     type: 3}
   playerPrefab: {fileID: 3153231606762315876, guid: 0601e1fef2f2a7047809e98c49e172a2,
     type: 3}
@@ -4738,6 +4740,17 @@ MonoBehaviour:
   randomNumberUfo: 0
   ufoProbability: 0.3
   stars: {fileID: 1478626754}
+  groundColorOptions:
+  - {fileID: 2800000, guid: 017eb4f8e425a46a99f5f858f3f97461, type: 3}
+  - {fileID: 2800000, guid: 1d024a6f51d844107aeb6b897d5468c3, type: 3}
+  - {fileID: 2800000, guid: 2e17801162ea04ae1953792fc89c5096, type: 3}
+  - {fileID: 2800000, guid: 8ef27c645b3934c66b6f2689c3757408, type: 3}
+  - {fileID: 2800000, guid: ceadbccc1dbbe413b8bdd39242f7b0fa, type: 3}
+  - {fileID: 2800000, guid: 368f5178ca8b54755a331b1a3faf2a35, type: 3}
+  - {fileID: 2800000, guid: 931407e345549492499a9d66e18d5c7e, type: 3}
+  - {fileID: 2800000, guid: f912f34246461804986f7d6a78b6ff06, type: 3}
+  - {fileID: 2800000, guid: 965091b1a034d4643985c2ac773b32ef, type: 3}
+  - {fileID: 2800000, guid: cb278049dd54d4a87b5a1c57b24d2da7, type: 3}
 --- !u!114 &601113530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8000,6 +8013,7 @@ MonoBehaviour:
   diamond: {fileID: 452310658}
   totalDiamond: {fileID: 155730251}
   bonusTime: 0
+  bonusPlace: {fileID: 0}
 --- !u!114 &1071756148
 MonoBehaviour:
   m_ObjectHideFlags: 0

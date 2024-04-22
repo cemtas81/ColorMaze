@@ -14,7 +14,7 @@ public class PaintGround : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_countdownTimer = FindAnyObjectByType<CountDownTimer>();
+        //m_countdownTimer = FindAnyObjectByType<CountDownTimer>();
         currentcolor = GetComponent<MeshRenderer>().material;
         part = GetComponentInChildren<ParticleSystem>();
         m_generator = FindAnyObjectByType<SimpleMazeGenerator>();
@@ -27,14 +27,17 @@ public class PaintGround : MonoBehaviour
         {
             if (currentcolor != nextcolor)
             {
-                currentcolor.DOColor(nextcolor.color, 0.1f);
+                //currentcolor.DOColor(nextcolor.color, 0.1f);
                 currentcolor = nextcolor; // because of painted doesn't increase again
                 //m_countdownTimer.AddSecond();
+                transform.DOLocalRotate(new Vector3(-90, -90, 0), 0f);
                 if (other.gameObject.TryGetComponent(out PlayerMovement plyr))
                 {
                     plyr.isBonus = true;
                 }
+               
                 part.Play();
+                
                 m_generator.currentCell--;
                 if (m_generator.currentCell < 1)
                 {

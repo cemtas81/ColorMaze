@@ -20,6 +20,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
     private CountDownTimer timer;
     public ParticleSystem stars;
+    public Texture[] groundColorOptions;
+    private Texture groundCurrentColor;
+    private Renderer groundRenderer;
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
@@ -27,6 +30,9 @@ public class SimpleMazeGenerator : MonoBehaviour
         levelText.text = ("Level" + ":" + currentLevel.ToString());
         completed.SetActive(false);
         timer = CountDownTimer.instance;
+        groundRenderer = groundPrefab.GetComponent<Renderer>();
+        groundCurrentColor = groundColorOptions[Random.Range(0, groundColorOptions.Length)];
+        groundRenderer.sharedMaterial.mainTexture = groundCurrentColor;
     }
     void GenerateMazeForCurrentLevel()
     {
@@ -82,11 +88,11 @@ public class SimpleMazeGenerator : MonoBehaviour
                         break;
                     case 8:
                         // Instantiate left space
-                        Instantiate(leftSpacePrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
                         break;
                     case 9:
                         // Instantiate right space
-                        Instantiate(rightSpacePrefab, new Vector3(i, 0, j), Quaternion.identity);
+                        Instantiate(groundPrefab, new Vector3(i, 0, j), Quaternion.identity);
                         break;
                     // Add other cases for different tile types if needed
                     default:
