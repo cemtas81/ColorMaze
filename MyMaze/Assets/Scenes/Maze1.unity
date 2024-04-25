@@ -3212,7 +3212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &437418616
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3231,7 +3231,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -75}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &437418617
 Animator:
   serializedVersion: 5
@@ -3301,10 +3301,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62
-  m_fontSizeBase: 62
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -4024,7 +4024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &524087189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4113,7 +4113,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62
+  m_fontSize: 41.65
   m_fontSizeBase: 62
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4748,9 +4748,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ceadbccc1dbbe413b8bdd39242f7b0fa, type: 3}
   - {fileID: 2800000, guid: 368f5178ca8b54755a331b1a3faf2a35, type: 3}
   - {fileID: 2800000, guid: 931407e345549492499a9d66e18d5c7e, type: 3}
-  - {fileID: 2800000, guid: f912f34246461804986f7d6a78b6ff06, type: 3}
+  - {fileID: 2800000, guid: 0f092130f27fe482ab1ef683561e12bf, type: 3}
   - {fileID: 2800000, guid: 965091b1a034d4643985c2ac773b32ef, type: 3}
-  - {fileID: 2800000, guid: cb278049dd54d4a87b5a1c57b24d2da7, type: 3}
+  - {fileID: 2800000, guid: 7eea491c6f5064c00a02b6516bfff7d5, type: 3}
 --- !u!114 &601113530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8013,7 +8013,7 @@ MonoBehaviour:
   diamond: {fileID: 452310658}
   totalDiamond: {fileID: 155730251}
   bonusTime: 0
-  bonusPlace: {fileID: 0}
+  bonusPlace: {fileID: 524087189}
 --- !u!114 &1071756148
 MonoBehaviour:
   m_ObjectHideFlags: 0

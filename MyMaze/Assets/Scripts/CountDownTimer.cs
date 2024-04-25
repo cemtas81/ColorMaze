@@ -94,17 +94,19 @@ public class CountDownTimer : MonoBehaviour
     IEnumerator EraseBonusText(TMP_Text bonus, String symbol)
     {
 
-        //yield return new WaitForSeconds(.2f);
-        Instantiate(bonus, bonusPlace);
-        //bonus.enabled = true;
-        bonus.text = symbol + bonusTime.ToString();
         yield return new WaitForSeconds(.2f);
-        //bonus.enabled = false;
+        //Instantiate(bonus, bonusPlace);
+        bonus.gameObject.SetActive(true);
+        bonus.text = symbol + bonusTime.ToString();
+
+        yield return new WaitForSeconds(.2f);
+        bonus.gameObject.SetActive(false);
         if (symbol == "-")
 
             countdownTime -= bonusTime;
         else
             countdownTime += bonusTime;
+
         bonusTime = 0;
         UpdateCountdownText();
 

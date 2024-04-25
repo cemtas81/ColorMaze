@@ -35,9 +35,9 @@ public class PaintGround : MonoBehaviour
                 {
                     plyr.isBonus = true;
                 }
-               
+
                 part.Play();
-                
+
                 m_generator.currentCell--;
                 if (m_generator.currentCell < 1)
                 {
@@ -49,7 +49,7 @@ public class PaintGround : MonoBehaviour
                 //m_countdownTimer.ExtractOneSecond();
                 if (other.gameObject.TryGetComponent(out PlayerMovement plyr))
                 {
-                    plyr.isDeploy= true;
+                    plyr.isDeploy = true;
                 }
             }
         }
