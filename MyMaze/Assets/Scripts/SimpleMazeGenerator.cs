@@ -20,9 +20,9 @@ public class SimpleMazeGenerator : MonoBehaviour
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
     private CountDownTimer timer;
     public ParticleSystem stars;
-    public Texture[] groundColorOptions;
-    private Texture groundCurrentColor;
-    private Renderer groundRenderer;
+    public Texture[] groundColorOptions,wallColorOptions;
+    private Texture groundCurrentColor,wallCurrentColor;
+    private Renderer groundRenderer,wallRenderer;
     private void Start()
     {
         currentLevel = PlayerPrefs.GetInt("lastLevel", 1); // Default to level 1 if not set
@@ -30,9 +30,18 @@ public class SimpleMazeGenerator : MonoBehaviour
         levelText.text = ("Level" + ":" + currentLevel.ToString());
         completed.SetActive(false);
         timer = CountDownTimer.instance;
+        // Get the Renderer components
         groundRenderer = groundPrefab.GetComponent<Renderer>();
-        groundCurrentColor = groundColorOptions[Random.Range(0, groundColorOptions.Length)];
+        wallRenderer = wallPrefab.GetComponent<Renderer>();
+
+        // Select a random index for the ground color
+        int groundColorIndex = Random.Range(0, groundColorOptions.Length);
+        groundCurrentColor = groundColorOptions[groundColorIndex];
         groundRenderer.sharedMaterial.mainTexture = groundCurrentColor;
+
+        // Use the same index for the wall color
+        wallCurrentColor = wallColorOptions[groundColorIndex];
+        wallRenderer.sharedMaterial.mainTexture = wallCurrentColor;
     }
     void GenerateMazeForCurrentLevel()
     {

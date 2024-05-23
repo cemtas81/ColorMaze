@@ -3017,7 +3017,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.8637417, g: 0.9716981, b: 0.5087665, a: 1}
+  m_Color: {r: 1, g: 0.9485697, b: 0.8160377, a: 1}
   m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
@@ -4751,6 +4751,17 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 0f092130f27fe482ab1ef683561e12bf, type: 3}
   - {fileID: 2800000, guid: 965091b1a034d4643985c2ac773b32ef, type: 3}
   - {fileID: 2800000, guid: 7eea491c6f5064c00a02b6516bfff7d5, type: 3}
+  wallColorOptions:
+  - {fileID: 2800000, guid: f7ae5d622cd304d70b9a96c78cb56cad, type: 3}
+  - {fileID: 2800000, guid: 0f0f4ce3a6e004b6091576e039291a40, type: 3}
+  - {fileID: 2800000, guid: 6b4d0e66777eb4082bd332c247552ffc, type: 3}
+  - {fileID: 2800000, guid: 1bc298716745d453f812a5924ca98b31, type: 3}
+  - {fileID: 2800000, guid: 324123bff850f48748be30be38842701, type: 3}
+  - {fileID: 2800000, guid: a3e6f3b2d9fae4430b6f5234286cc576, type: 3}
+  - {fileID: 2800000, guid: 0f092130f27fe482ab1ef683561e12bf, type: 3}
+  - {fileID: 2800000, guid: 931407e345549492499a9d66e18d5c7e, type: 3}
+  - {fileID: 2800000, guid: 38899c28141424344960214eb2450e59, type: 3}
+  - {fileID: 2800000, guid: f7ae5d622cd304d70b9a96c78cb56cad, type: 3}
 --- !u!114 &601113530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5855,7 +5866,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 31
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

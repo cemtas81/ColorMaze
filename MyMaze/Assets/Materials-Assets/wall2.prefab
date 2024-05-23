@@ -98,3 +98,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxY: 3
   duration: 2
+  crushEffect: {fileID: 0}
