@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private MeshRenderer mesh;
     [SerializeField] private SkinnedMeshRenderer skinnedMesh;
     private int SkinCount, matCount;
-    private SimpleMazeGenerator mGenerator; 
+    private SimpleMazeGenerator mGenerator;
     private CountDownTimer m_countdownTimer;
     void Start()
     {
@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour
                     //isMoving = false;
                     direction = Vector3.zero;
                     nextWallPos = Vector3.zero;
-                   
-                    
+
+
                 }
             }
             else if (speedy >= 1)
@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 m_countdownTimer.ExtractOneSecond();
                 isDeploy = false;
             }
+
         }
         speedy = rb.velocity.magnitude;
         // Keyboard input
@@ -205,6 +206,10 @@ public class PlayerMovement : MonoBehaviour
             swipePosFirst = Vector2.zero;
             swipePosSecond = Vector2.zero;
         }
+        if (transform.position.y < 5f)
+        {
+            transform.position = new Vector3(transform.position.x, .95f, transform.position.z);
+        }
     }
 
     public void SetDirection(Vector3 forSetDirection)
@@ -236,13 +241,13 @@ public class PlayerMovement : MonoBehaviour
     }
     public IEnumerator SoundManager()
     {
-       
+
         watersound.Play();
 
         yield return new WaitForSeconds(0.2f); // watersound doesn't work all the time
 
         forsound = false;
-        
+
     }
 
 }
