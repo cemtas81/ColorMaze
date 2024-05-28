@@ -10,7 +10,8 @@ public class PaintGround : MonoBehaviour
     public Material nextcolor;
     private SimpleMazeGenerator m_generator;
     public ParticleSystem part;
-    private CountDownTimer m_countdownTimer;
+    //private CountDownTimer m_countdownTimer;
+    private Collider coll;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class PaintGround : MonoBehaviour
         currentcolor = GetComponent<MeshRenderer>().material;
         part = GetComponentInChildren<ParticleSystem>();
         m_generator = FindAnyObjectByType<SimpleMazeGenerator>();
+        coll = GetComponent<Collider>();
         m_generator.currentCell++;
     }
 
@@ -29,8 +31,18 @@ public class PaintGround : MonoBehaviour
             {
                 //currentcolor.DOColor(nextcolor.color, 0.1f);
                 currentcolor = nextcolor; // because of painted doesn't increase again
-                //m_countdownTimer.AddSecond();
-                transform.DOLocalRotate(new Vector3(-90, -90, 0), 0f);
+                                          //m_countdownTimer.AddSecond();
+                                          // Create the sequence
+                Sequence rotationSequence = DOTween.Sequence();
+
+                // Disable the collider before starting the rotation
+                rotationSequence.AppendCallback(() => coll.enabled = false);
+
+                // Perform the rotation
+                rotationSequence.Append(transform.DOLocalRotate(new Vector3(-90, -90, 0), 0.3f));
+
+                // Enable the collider after the rotation is complete
+                rotationSequence.AppendCallback(() => coll.enabled = true);
                 if (other.gameObject.TryGetComponent(out PlayerMovement plyr))
                 {
                     plyr.isBonus = true;
