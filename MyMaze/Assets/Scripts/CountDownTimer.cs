@@ -25,6 +25,7 @@ public class CountDownTimer : MonoBehaviour
         m_Generator = FindAnyObjectByType<SimpleMazeGenerator>();
         over = false;
         totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
+        
     }
     private void Awake()
     {

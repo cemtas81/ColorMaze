@@ -14,7 +14,7 @@ public class SimpleMazeGenerator : MonoBehaviour
     public int width = 10, height = 10, currentCell;
     public GameObject completed, groundPrefab, playerPrefab, trapPrefab, leftSpacePrefab, rightSpacePrefab, outsidePrefab, warpSmoke, wallPrefab, warpPrefab, ufo,diamondGo,completedAvatar;
     public Text levelText, levelText2;
-    public TMP_Text diamond;
+    public TMP_Text diamond, mainScore;
     private int currentLevel;
     public float instantiationProbability = .5f, randomNumber, randomNumberUfo, ufoProbability;
     private List<Vector3> groundPositions = new(); // Store positions of ground prefabs
@@ -33,7 +33,7 @@ public class SimpleMazeGenerator : MonoBehaviour
         // Get the Renderer components
         groundRenderer = groundPrefab.GetComponent<Renderer>();
         wallRenderer = wallPrefab.GetComponent<Renderer>();
-
+        mainScore.text = PlayerPrefs.GetInt("MainScore").ToString();
         // Select a random index for the ground color
         int groundColorIndex = Random.Range(0, groundColorOptions.Length);
         groundCurrentColor = groundColorOptions[groundColorIndex];
@@ -227,6 +227,7 @@ public class SimpleMazeGenerator : MonoBehaviour
         PlayerPrefs.SetInt("lastLevel", currentLevel);
         timer.diamond.enabled = false;
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + Mathf.CeilToInt(timer.countdownTime));
+        PlayerPrefs.SetInt("MainScore", PlayerPrefs.GetInt("MainScore") + Mathf.CeilToInt(timer.countdownTime));
         timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
         yield return new WaitForSecondsRealtime(1);
         PlayerPrefs.Save();
