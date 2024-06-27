@@ -131,10 +131,15 @@ public class MenuScript : MonoBehaviour
     }
     IEnumerator Quit()
     {
+        PlayerPrefs.Save();
         yield return new WaitForSeconds(.2f);
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+    private void OnDisable()
+    {
+        PlayerPrefs.Save();
     }
 }

@@ -16,7 +16,7 @@ namespace Dan.Demo
         [SerializeField] private Transform _entryDisplayParent;
         [SerializeField] private EntryDisplay _entryDisplayPrefab;
         [SerializeField] private CanvasGroup _leaderboardLoadingPanel;
-
+        [SerializeField] private Color _leaderboardColor;
         [Header("Search Query Essentials:")]
         [SerializeField] private TMP_Dropdown _timePeriodDropdown;
         [SerializeField] private TMP_InputField _pageInput, _entriesToTakeInput;
@@ -141,8 +141,8 @@ namespace Dan.Demo
         {
             StartCoroutine(LoadingTextCoroutine(_leaderboardLoadingPanel.GetComponentInChildren<TextMeshProUGUI>()));
 
-            _pageInput.onValueChanged.AddListener(_ => _pageInput.image.color = Color.yellow);
-            _entriesToTakeInput.onValueChanged.AddListener(_ => _entriesToTakeInput.image.color = Color.yellow);
+            _pageInput.onValueChanged.AddListener(_ => _pageInput.image.color = _leaderboardColor);
+            _entriesToTakeInput.onValueChanged.AddListener(_ => _entriesToTakeInput.image.color = _leaderboardColor);
 
             _pageInput.placeholder.GetComponent<TextMeshProUGUI>().text = _defaultPageNumber.ToString();
             _entriesToTakeInput.placeholder.GetComponent<TextMeshProUGUI>().text = _defaultEntriesToTake.ToString();
@@ -150,6 +150,15 @@ namespace Dan.Demo
         
         private void Start()
         {
+            if (PlayerPrefs.GetString(name)==string.Empty)
+            {
+                _playerUsernameInput.text="DefaultUser";
+            }
+            else
+            {
+                _playerUsernameInput.text = PlayerPrefs.GetString(name);
+            }
+            
             _playerScore = PlayerPrefs.GetInt("MainScore");
             InitializeComponents();
             Load();
@@ -157,6 +166,7 @@ namespace Dan.Demo
 
         public void Submit()
         {
+            PlayerPrefs.SetString(name, _playerUsernameInput.text);
             Leaderboards.MazeCem.UploadNewEntry(_playerUsernameInput.text, _playerScore, Callback, ErrorCallback);
         }
         

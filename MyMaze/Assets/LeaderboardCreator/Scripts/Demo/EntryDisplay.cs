@@ -9,7 +9,7 @@ namespace Dan.Demo
     public class EntryDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _rankText, _usernameText, _scoreText, _timeText;
-        
+        [SerializeField] private Color _leaderboardColor;
         public void SetEntry(Entry entry)
         {
             _rankText.text = entry.RankSuffix();
@@ -19,7 +19,7 @@ namespace Dan.Demo
             dateTime = dateTime.AddSeconds(entry.Date);
             _timeText.text = $"{dateTime.Hour:00}:{dateTime.Minute:00}:{dateTime.Second:00} (UTC)\n{dateTime:dd/MM/yyyy}";
             
-            GetComponent<Image>().color = entry.IsMine() ? Color.yellow : Color.white;
+            GetComponent<Image>().color = entry.IsMine() ? _leaderboardColor : Color.white;
         }
     }
 }

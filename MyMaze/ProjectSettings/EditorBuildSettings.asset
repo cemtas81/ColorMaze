@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Leaderboard2.unity
     guid: 440a3b3a3e8b6424a95cce601934f6c6
   - enabled: 0
+    path: Assets/Scenes/PlayFabLeaderboard.unity
+    guid: 7b4f5d8e2798ee2468a87d44ef630088
+  - enabled: 0
     path: Assets/Scenes/Leaderboard.unity
     guid: 98f0c2eb95856b246a811c9dc11b419c
   m_configObjects: {}
