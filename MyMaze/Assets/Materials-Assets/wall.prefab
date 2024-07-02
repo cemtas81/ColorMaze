@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0d7542cb7030d47379e25189f44497c6, type: 2}
+  - {fileID: 2100000, guid: cdf9cd071e949e041a694b19c0b05c47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,5 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxY: 1.5
-  duration: 1
   crushEffect: {fileID: 100018, guid: 51a86f32efb25674485dd9c5b35d8695, type: 3}

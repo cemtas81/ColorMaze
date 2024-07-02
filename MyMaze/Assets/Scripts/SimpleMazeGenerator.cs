@@ -228,12 +228,17 @@ public class SimpleMazeGenerator : MonoBehaviour
         timer.diamond.enabled = false;
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + Mathf.CeilToInt(timer.countdownTime));
         PlayerPrefs.SetInt("MainScore", PlayerPrefs.GetInt("MainScore") + Mathf.CeilToInt(timer.countdownTime));
+        //DoCount(timer.totalDiamond, Mathf.CeilToInt(timer.countdownTime), PlayerPrefs.GetInt("Score"), 3);
         timer.totalDiamond.text = PlayerPrefs.GetInt("Score").ToString();
         yield return new WaitForSecondsRealtime(1);
         PlayerPrefs.Save();
         //GenerateMazeForCurrentLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    //public static Tween DoCount(TMP_Text text,int start, int end,float duration)
+    //{
+    //    return DOVirtual.Int(start, end, duration, x => text.text = x.ToString());
+    //}
     IEnumerator LevelEnd()
     {
   

@@ -4896,30 +4896,12 @@ MonoBehaviour:
   instantiationProbability: 0.2
   randomNumber: 0
   randomNumberUfo: 0
-  ufoProbability: 0.3
+  ufoProbability: 0.1
   stars: {fileID: 1478626754}
   groundColorOptions:
-  - {fileID: 2800000, guid: 017eb4f8e425a46a99f5f858f3f97461, type: 3}
   - {fileID: 2800000, guid: 1d024a6f51d844107aeb6b897d5468c3, type: 3}
-  - {fileID: 2800000, guid: 2e17801162ea04ae1953792fc89c5096, type: 3}
-  - {fileID: 2800000, guid: 8ef27c645b3934c66b6f2689c3757408, type: 3}
-  - {fileID: 2800000, guid: ceadbccc1dbbe413b8bdd39242f7b0fa, type: 3}
-  - {fileID: 2800000, guid: 368f5178ca8b54755a331b1a3faf2a35, type: 3}
-  - {fileID: 2800000, guid: 931407e345549492499a9d66e18d5c7e, type: 3}
-  - {fileID: 2800000, guid: 0f092130f27fe482ab1ef683561e12bf, type: 3}
-  - {fileID: 2800000, guid: 965091b1a034d4643985c2ac773b32ef, type: 3}
-  - {fileID: 2800000, guid: 7eea491c6f5064c00a02b6516bfff7d5, type: 3}
   wallColorOptions:
-  - {fileID: 2800000, guid: f7ae5d622cd304d70b9a96c78cb56cad, type: 3}
-  - {fileID: 2800000, guid: 0f0f4ce3a6e004b6091576e039291a40, type: 3}
-  - {fileID: 2800000, guid: 6b4d0e66777eb4082bd332c247552ffc, type: 3}
-  - {fileID: 2800000, guid: 1bc298716745d453f812a5924ca98b31, type: 3}
-  - {fileID: 2800000, guid: 324123bff850f48748be30be38842701, type: 3}
-  - {fileID: 2800000, guid: a3e6f3b2d9fae4430b6f5234286cc576, type: 3}
-  - {fileID: 2800000, guid: 0f092130f27fe482ab1ef683561e12bf, type: 3}
-  - {fileID: 2800000, guid: 931407e345549492499a9d66e18d5c7e, type: 3}
-  - {fileID: 2800000, guid: 38899c28141424344960214eb2450e59, type: 3}
-  - {fileID: 2800000, guid: f7ae5d622cd304d70b9a96c78cb56cad, type: 3}
+  - {fileID: 2800000, guid: 1d024a6f51d844107aeb6b897d5468c3, type: 3}
 --- !u!114 &601113530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6104,6 +6086,7 @@ MonoBehaviour:
   diamond: {fileID: 0}
   mainScore: {fileID: 0}
   control: {fileID: 0}
+  leaderboard: {fileID: 0}
 --- !u!1 &793684162 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2833214364855998303, guid: 60470d941b0737845b815a2eb9ee3748,
