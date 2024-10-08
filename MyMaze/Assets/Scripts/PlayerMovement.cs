@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMoving && targetDecided && !isAvatar)
         {
-            rb.velocity = speed * direction;
+            rb.linearVelocity = speed * direction;
         }
     }
     public void Stars()
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        speedy = rb.velocity.magnitude;
+        speedy = rb.linearVelocity.magnitude;
         // Keyboard input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
